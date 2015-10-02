@@ -1,0 +1,35 @@
+{%- block form_widget_simple -%}
+{% spaceless %}
+    {% set attr = attr|merge({ 'class': (attr.class|default('') ~ ' form-control')|trim }) %}
+    {%- set type = type|default('text') -%}
+    <input type="{{ type }}" {{ block('widget_attributes') }} {% if value is not empty %}value="{{ value }}" {% endif %}/>
+{% endspaceless %}
+{%- endblock form_widget_simple -%}
+
+{% block form_label %}
+    {% set label_attr = attr|merge({ 'class': (attr.class|default('') ~ ' form-control')|trim }) %}
+    {{ block('base_form_label')}}
+{% endblock form_label %}
+
+{%- block button_widget -%}
+{% spaceless %}
+    {% set attr = attr|merge({class: (attr.class|default('btn-default') ~ ' btn')|trim}) %}
+    {%- if label is empty -%}
+    {%- if label_format is not empty -%}
+    {% set label = label_format|replace({
+                '%name%': name,
+                '%id%': id,
+            }) %}
+    {%- else -%}
+    {% set label = name|humanize %}
+    {%- endif -%}
+    {%- endif -%}
+    <button type="{{ type|default('button') }}" {{ block('button_attributes') }}>{{ label|trans({}, translation_domain) }}</button>
+{% endspaceless %}
+{%- endblock button_widget -%}
+
+{%- block submit_widget -%}
+{%- set type = type|default('submit') -%}
+{{ block('button_widget') }}
+{%- endblock submit_widget -%}
+

@@ -1,9 +1,9 @@
 <?php
 
-namespace AppBundle;
+namespace FeladatBundle;
 
 use Symfony\Component\HttpKernel\Bundle\Bundle;
 
-class AppBundle extends Bundle
+class FeladatBundle extends Bundle
 {
 }

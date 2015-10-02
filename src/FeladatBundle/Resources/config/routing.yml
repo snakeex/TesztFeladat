@@ -1,0 +1,18 @@
+index:
+    path:     /
+    defaults: { _controller: FeladatBundle:Index:index }
+
+login:
+    path:     /login
+    defaults: { _controller: FeladatBundle:Security:login }
+    
+login_check:
+    path:     /login_check
+    
+logout:
+    path:   /logout
+    
+create:
+    path:   /create
+    defaults: { _controller: FeladatBundle:Default:create}
+

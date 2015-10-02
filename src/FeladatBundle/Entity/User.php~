@@ -1,0 +1,68 @@
+<?php
+
+namespace FeladatBundle\Entity;
+
+use Doctrine\ORM\Mapping as ORM;
+
+/**
+ * User
+ *
+ * @ORM\Table(name="user", uniqueConstraints={@ORM\UniqueConstraint(name="felhasznalonev", columns={"felhasznalonev"})})
+ * @ORM\Entity
+ */
+class User
+{
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="id", type="integer")
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="IDENTITY")
+     */
+    private $id;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="nev_elotag", type="string", length=255, nullable=false)
+     */
+    private $nevElotag;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="vezeteknev", type="string", length=255, nullable=false)
+     */
+    private $vezeteknev;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="keresztnev", type="string", length=255, nullable=false)
+     */
+    private $keresztnev;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="felhasznalonev", type="string", length=255, nullable=false)
+     */
+    private $felhasznalonev;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="jelszo", type="string", length=255, nullable=false)
+     */
+    private $jelszo;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="salt", type="string", length=255, nullable=false)
+     */
+    private $salt;
+
+
+}
+
