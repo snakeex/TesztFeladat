@@ -1,14 +1,6 @@
-FeladatBundle\Entity\User:
+FeladatBundle\Entity\NevElotag:
     type: entity
-    table: user
-    indexes:
-        nev_elotag:
-            columns:
-                - nev_elotag
-    uniqueConstraints:
-        felhasznalonev:
-            columns:
-                - felhasznalonev
+    table: nev_elotag
     id:
         id:
             type: integer
@@ -19,45 +11,42 @@ FeladatBundle\Entity\User:
             generator:
                 strategy: IDENTITY
     fields:
-        vezeteknev:
+        nev:
             type: string
             nullable: false
             length: 255
             options:
                 fixed: false
-        keresztnev:
+        leiras:
+            type: text
+            nullable: true
+            length: 65535
+            options:
+                fixed: false
+        letrehozva:
             type: string
             nullable: false
+            length: 25
+            options:
+                fixed: false
+        letrehozo:
+            type: string
+            nullable: true
             length: 255
             options:
                 fixed: false
-        felhasznalonev:
+        modositva:
             type: string
             nullable: false
+            length: 25
+            options:
+                fixed: false
+        modosito:
+            type: string
+            nullable: true
             length: 255
             options:
                 fixed: false
-        jelszo:
-            type: string
-            nullable: false
-            length: 255
-            options:
-                fixed: false
-        salt:
-            type: string
-            nullable: false
-            length: 255
-            options:
-                fixed: false
-    manyToOne:
-        nevElotag:
-            targetEntity: NevElotag
-            cascade: {  }
-            fetch: LAZY
-            mappedBy: null
-            inversedBy: null
-            joinColumns:
-                nev_elotag:
-                    referencedColumnName: id
-            orphanRemoval: false
-    lifecycleCallbacks: {  }
+    lifecycleCallbacks:
+        prePersist: [ setLetrehozva, setModositva ]
+        preUpdate: [ setModositva ]

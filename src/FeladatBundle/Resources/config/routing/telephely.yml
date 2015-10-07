@@ -1,0 +1,30 @@
+telephely:
+    path:     /
+    defaults: { _controller: "FeladatBundle:Telephely:index" }
+
+telephely_show:
+    path:     /{id}/show
+    defaults: { _controller: "FeladatBundle:Telephely:show" }
+
+telephely_new:
+    path:     /new
+    defaults: { _controller: "FeladatBundle:Telephely:new" }
+
+telephely_create:
+    path:     /create
+    defaults: { _controller: "FeladatBundle:Telephely:create" }
+    methods:  POST
+
+telephely_edit:
+    path:     /{id}/edit
+    defaults: { _controller: "FeladatBundle:Telephely:edit" }
+
+telephely_update:
+    path:     /{id}/update
+    defaults: { _controller: "FeladatBundle:Telephely:update" }
+    methods:  [POST, PUT]
+
+telephely_delete:
+    path:     /{id}/delete
+    defaults: { _controller: "FeladatBundle:Telephely:delete" }
+    methods:  [POST, DELETE]

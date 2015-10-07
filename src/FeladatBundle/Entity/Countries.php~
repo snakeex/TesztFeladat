@@ -1,0 +1,40 @@
+<?php
+
+namespace FeladatBundle\Entity;
+
+use Doctrine\ORM\Mapping as ORM;
+
+/**
+ * Countries
+ *
+ * @ORM\Table(name="countries", uniqueConstraints={@ORM\UniqueConstraint(name="countryName", columns={"countryName"}), @ORM\UniqueConstraint(name="countryName_2", columns={"countryName"}), @ORM\UniqueConstraint(name="countryName_3", columns={"countryName"})})
+ * @ORM\Entity
+ */
+class Countries
+{
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="id", type="integer")
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="IDENTITY")
+     */
+    private $id;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="countryCode", type="string", length=2, nullable=false)
+     */
+    private $countrycode = '';
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="countryName", type="string", length=45, nullable=false)
+     */
+    private $countryname = '';
+
+
+}
+

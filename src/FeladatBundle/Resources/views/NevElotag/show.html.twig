@@ -1,0 +1,54 @@
+{% extends '::base.html.twig' %}
+
+{% block body -%}
+    <h1>Név előtag</h1>
+
+    <div class="table-responsive">
+    <table class="record_properties table-striped table-condensed table-bordered">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ entity.id }}</td>
+            </tr>
+            <tr>
+                <th>Név</th>
+                <td>{{ entity.nev }}</td>
+            </tr>
+            <tr>
+                <th>Leírás</th>
+                <td>{{ entity.leiras }}</td>
+            </tr>
+            <tr>
+                <th>Létrehozva</th>
+                <td>{{ entity.letrehozva|date }}</td>
+            </tr>
+            <tr>
+                <th>Létrehozta</th>
+                <td>{{ entity.letrehozo }}</td>
+            </tr>
+            <tr>
+                <th>Módositva</th>
+                <td>{{ entity.modositva|date }}</td>
+            </tr>
+            <tr>
+                <th>Módosította</th>
+                <td>{{ entity.modosito }}</td>
+            </tr>
+        </tbody>
+    </table>
+    </div>
+
+        <ul class="record_actions">
+    <li>
+        <a href="{{ path('nevelotag') }}">
+            Back to the list
+        </a>
+    </li>
+    <li>
+        <a href="{{ path('nevelotag_edit', { 'id': entity.id }) }}">
+            Edit
+        </a>
+    </li>
+    <li>{{ form(delete_form) }}</li>
+</ul>
+{% endblock %}

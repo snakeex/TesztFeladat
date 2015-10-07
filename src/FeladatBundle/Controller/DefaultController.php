@@ -3,6 +3,7 @@
 namespace FeladatBundle\Controller;
 
 use FeladatBundle\Entity\User;
+use FeladatBundle\Entity\NevElotag;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Response;
 
@@ -19,10 +20,14 @@ class DefaultController extends Controller
     }
     
      private function createTestUser($pre, $lastname, $firstname, $username, $pwd){
+        $elotag = new NevElotag();
+        $elotag->setNev($pre);
+         
         $user = new User();
+               
         $factory = $this->get('security.encoder_factory');
         
-        $user->setNevElotag($pre);
+        $user->setNevElotag($elotag);
         $user->setKeresztnev($firstname);
         $user->setVezeteknev($lastname);
         $user->setUsername($username);
@@ -33,10 +38,11 @@ class DefaultController extends Controller
         $user->setPassword($password);
 
         $em = $this->getDoctrine()->getManager();
-
+        
+        $em->persist($elotag);
         $em->persist($user);
         $em->flush();
 
-        return new Response('Created user id ' . $user->getId());
+        return new Response('Created user id ' . $elotag->getNev());
     }
 }

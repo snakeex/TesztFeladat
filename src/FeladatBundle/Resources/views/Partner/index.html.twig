@@ -1,0 +1,101 @@
+{% extends '::base.html.twig' %}
+
+{% block body -%}
+    <h1>Partner list</h1>
+
+    <table class="records_list">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Cegnev</th>
+                <th>Vezeteknev</th>
+                <th>Keresztnev</th>
+                <th>Szamlazasinev</th>
+                <th>Partnertipus</th>
+                <th>Email</th>
+                <th>Szekhelycimirsz</th>
+                <th>Szekhelycimtelepules</th>
+                <th>Szekhelycimkozter</th>
+                <th>Szekhelycimihazsz</th>
+                <th>Szamlazasicimirsz</th>
+                <th>Szamlazasicimtelepules</th>
+                <th>Szamlazasicimkozter</th>
+                <th>Szamlazasicimhazsz</th>
+                <th>Postazasicimirsz</th>
+                <th>Postazasicimtelepules</th>
+                <th>Postazasicimkozter</th>
+                <th>Postazasicimhazsz</th>
+                <th>Adoszam</th>
+                <th>Euadoszam</th>
+                <th>Cegbejegyzesiszam</th>
+                <th>Telefon</th>
+                <th>Fax</th>
+                <th>Mobil</th>
+                <th>Szuletesnap</th>
+                <th>Anyjaneve</th>
+                <th>Szigszam</th>
+                <th>Letrehozva</th>
+                <th>Letrehozo</th>
+                <th>Modositva</th>
+                <th>Modosito</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for entity in entities %}
+            <tr>
+                <td><a href="{{ path('partner_show', { 'id': entity.id }) }}">{{ entity.id }}</a></td>
+                <td>{{ entity.cegnev }}</td>
+                <td>{{ entity.vezeteknev }}</td>
+                <td>{{ entity.keresztnev }}</td>
+                <td>{{ entity.szamlazasiNev }}</td>
+                <td>{{ entity.partnertipus }}</td>
+                <td>{{ entity.email }}</td>
+                <td>{{ entity.szekhelyCimIrsz }}</td>
+                <td>{{ entity.szekhelyCimTelepules }}</td>
+                <td>{{ entity.szekhelyCimKozter }}</td>
+                <td>{{ entity.szekhelyCimIhazsz }}</td>
+                <td>{{ entity.szamlazasiCimIrsz }}</td>
+                <td>{{ entity.szamlazasiCimTelepules }}</td>
+                <td>{{ entity.szamlazasiCimKozter }}</td>
+                <td>{{ entity.szamlazasiCimHazsz }}</td>
+                <td>{{ entity.postazasiCimIrsz }}</td>
+                <td>{{ entity.postazasiCimTelepules }}</td>
+                <td>{{ entity.postazasiCimKozter }}</td>
+                <td>{{ entity.postazasiCimHazsz }}</td>
+                <td>{{ entity.adoszam }}</td>
+                <td>{{ entity.euAdoszam }}</td>
+                <td>{{ entity.cegbejegyzesiSzam }}</td>
+                <td>{{ entity.telefon }}</td>
+                <td>{{ entity.fax }}</td>
+                <td>{{ entity.mobil }}</td>
+                <td>{{ entity.szuletesnap }}</td>
+                <td>{{ entity.anyjaNeve }}</td>
+                <td>{{ entity.szigSzam }}</td>
+                <td>{{ entity.letrehozva }}</td>
+                <td>{{ entity.letrehozo }}</td>
+                <td>{{ entity.modositva }}</td>
+                <td>{{ entity.modosito }}</td>
+                <td>
+                <ul>
+                    <li>
+                        <a href="{{ path('partner_show', { 'id': entity.id }) }}">show</a>
+                    </li>
+                    <li>
+                        <a href="{{ path('partner_edit', { 'id': entity.id }) }}">edit</a>
+                    </li>
+                </ul>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+        <ul>
+        <li>
+            <a href="{{ path('partner_new') }}">
+                Create a new entry
+            </a>
+        </li>
+    </ul>
+    {% endblock %}

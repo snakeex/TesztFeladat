@@ -1,0 +1,141 @@
+<?php
+
+namespace FeladatBundle\Entity;
+
+use Doctrine\ORM\Mapping as ORM;
+
+/**
+ * Telephely
+ *
+ * @ORM\Table(name="telephely", indexes={@ORM\Index(name="orszag", columns={"orszag"}), @ORM\Index(name="orszag_2", columns={"orszag"})})
+ * @ORM\Entity
+ */
+class Telephely
+{
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="id", type="integer")
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="IDENTITY")
+     */
+    private $id;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="partner", type="string", length=255, nullable=false)
+     */
+    private $partner;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="nev", type="string", length=255, nullable=false)
+     */
+    private $nev;
+
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="irsz", type="integer", nullable=false)
+     */
+    private $irsz;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="telepules", type="string", length=255, nullable=false)
+     */
+    private $telepules;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="kozter", type="string", length=255, nullable=false)
+     */
+    private $kozter;
+
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="hazsz", type="integer", nullable=false)
+     */
+    private $hazsz;
+
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="telefon", type="integer", nullable=false)
+     */
+    private $telefon;
+
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="fax", type="integer", nullable=false)
+     */
+    private $fax;
+
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="mobil", type="integer", nullable=false)
+     */
+    private $mobil;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="email", type="string", length=255, nullable=false)
+     */
+    private $email;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="megjegyzes", type="string", length=255, nullable=false)
+     */
+    private $megjegyzes;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="letrehozva", type="string", length=25, nullable=false)
+     */
+    private $letrehozva;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="letrehozo", type="string", length=255, nullable=false)
+     */
+    private $letrehozo;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="modositva", type="string", length=25, nullable=false)
+     */
+    private $modositva;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="modosito", type="string", length=255, nullable=false)
+     */
+    private $modosito;
+
+    /**
+     * @var \FeladatBundle\Entity\Countries
+     *
+     * @ORM\ManyToOne(targetEntity="FeladatBundle\Entity\Countries")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="orszag", referencedColumnName="id")
+     * })
+     */
+    private $orszag;
+
+
+}
+

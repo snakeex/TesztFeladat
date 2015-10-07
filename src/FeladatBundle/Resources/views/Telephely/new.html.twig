@@ -1,0 +1,13 @@
+{% extends '::base.html.twig' %}
+
+{% block body -%}
+    <h2>Telephely létrehozás</h2>
+    <div class="content">
+        {{ form(form) }}
+        <div>
+            <a href="{{ path('telephely') }}">
+                Vissza
+            </a>
+        </div>
+    </div>
+{% endblock %}

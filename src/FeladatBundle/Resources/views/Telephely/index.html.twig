@@ -1,0 +1,69 @@
+{% extends '::base.html.twig' %}
+
+{% block body -%}
+    <h1>Telephely list</h1>
+
+    <table class="records_list">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Partner</th>
+                <th>Nev</th>
+                <th>Irsz</th>
+                <th>Telepules</th>
+                <th>Kozter</th>
+                <th>Hazsz</th>
+                <th>Telefon</th>
+                <th>Fax</th>
+                <th>Mobil</th>
+                <th>Email</th>
+                <th>Megjegyzes</th>
+                <th>Letrehozva</th>
+                <th>Letrehozo</th>
+                <th>Modositva</th>
+                <th>Modosito</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for entity in entities %}
+            <tr>
+                <td><a href="{{ path('telephely_show', { 'id': entity.id }) }}">{{ entity.id }}</a></td>
+                <td>{{ entity.partner }}</td>
+                <td>{{ entity.nev }}</td>
+                <td>{{ entity.irsz }}</td>
+                <td>{{ entity.telepules }}</td>
+                <td>{{ entity.kozter }}</td>
+                <td>{{ entity.hazsz }}</td>
+                <td>{{ entity.telefon }}</td>
+                <td>{{ entity.fax }}</td>
+                <td>{{ entity.mobil }}</td>
+                <td>{{ entity.email }}</td>
+                <td>{{ entity.megjegyzes }}</td>
+                <td>{{ entity.letrehozva }}</td>
+                <td>{{ entity.letrehozo }}</td>
+                <td>{{ entity.modositva }}</td>
+                <td>{{ entity.modosito }}</td>
+                <td>
+                <ul>
+                    <li>
+                        <a href="{{ path('telephely_show', { 'id': entity.id }) }}">show</a>
+                    </li>
+                    <li>
+                        <a href="{{ path('telephely_edit', { 'id': entity.id }) }}">edit</a>
+                    </li>
+                </ul>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+        <ul>
+        <li>
+            <a href="{{ path('telephely_new') }}">
+                Create a new entry
+            </a>
+        </li>
+    </ul>
+    {% endblock %}

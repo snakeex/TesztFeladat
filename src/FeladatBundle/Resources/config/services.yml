@@ -1,0 +1,7 @@
+services:
+    menu.voter.request:
+        class: FeladatBundle\Menu\RequestVoter
+        arguments:
+            - @service_container
+        tags:
+            - { name: knp_menu.voter }

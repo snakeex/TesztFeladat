@@ -1,0 +1,154 @@
+{% extends '::base.html.twig' %}
+
+{% block body -%}
+    <h1>Partner</h1>
+
+    <div class="table-responsive">
+    <table class="record_properties table-striped table-condensed table-bordered">
+    <table class="record_properties">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ entity.id }}</td>
+            </tr>
+            <tr>
+                <th>Cégnév</th>
+                <td>{{ entity.cegnev }}</td>
+            </tr>
+            <tr>
+                <th>Vezetéknév</th>
+                <td>{{ entity.vezeteknev }}</td>
+            </tr>
+            <tr>
+                <th>Keresztnév</th>
+                <td>{{ entity.keresztnev }}</td>
+            </tr>
+            <tr>
+                <th>Számlázási név</th>
+                <td>{{ entity.szamlazasiNev }}</td>
+            </tr>
+            <tr>
+                <th>Partner típus</th>
+                <td>{{ entity.partnertipus }}</td>
+            </tr>
+            <tr>
+                <th>E-mail</th>
+                <td>{{ entity.email }}</td>
+            </tr>
+            <tr>
+                <th>Székhely cím -irányítószám</th>
+                <td>{{ entity.szekhelyCimIrsz }}</td>
+            </tr>
+            <tr>
+                <th>Székhely cím -település</th>
+                <td>{{ entity.szekhelyCimTelepules }}</td>
+            </tr>
+            <tr>
+                <th>Székhelycím -közterület</th>
+                <td>{{ entity.szekhelyCimKozter }}</td>
+            </tr>
+            <tr>
+                <th>Székhely cím -házszám</th>
+                <td>{{ entity.szekhelyCimIhazsz }}</td>
+            </tr>
+            <tr>
+                <th>Számlázási cím -irányítószám</th>
+                <td>{{ entity.szamlazasiCimIrsz }}</td>
+            </tr>
+            <tr>
+                <th>Számlázási cím -település</th>
+                <td>{{ entity.szamlazasiCimTelepules }}</td>
+            </tr>
+            <tr>
+                <th>Számlázási cím -közterület</th>
+                <td>{{ entity.szamlazasiCimKozter }}</td>
+            </tr>
+            <tr>
+                <th>Számlázási cím -házszám</th>
+                <td>{{ entity.szamlazasiCimHazsz }}</td>
+            </tr>
+            <tr>
+                <th>Postázási cím -irányítószám</th>
+                <td>{{ entity.postazasiCimIrsz }}</td>
+            </tr>
+            <tr>
+                <th>Postázási cím -település</th>
+                <td>{{ entity.postazasiCimTelepules }}</td>
+            </tr>
+            <tr>
+                <th>Postázási cím -közterület</th>
+                <td>{{ entity.postazasiCimKozter }}</td>
+            </tr>
+            <tr>
+                <th>Postázási cím -házszám</th>
+                <td>{{ entity.postazasiCimHazsz }}</td>
+            </tr>
+            <tr>
+                <th>Adószám</th>
+                <td>{{ entity.adoszam }}</td>
+            </tr>
+            <tr>
+                <th>EU adószám</th>
+                <td>{{ entity.euAdoszam }}</td>
+            </tr>
+            <tr>
+                <th>Cégbejegyzési szám</th>
+                <td>{{ entity.cegbejegyzesiSzam }}</td>
+            </tr>
+            <tr>
+                <th>Telefon</th>
+                <td>{{ entity.telefon }}</td>
+            </tr>
+            <tr>
+                <th>Fax</th>
+                <td>{{ entity.fax }}</td>
+            </tr>
+            <tr>
+                <th>Mobil</th>
+                <td>{{ entity.mobil }}</td>
+            </tr>
+            <tr>
+                <th>Születésnap</th>
+                <td>{{ entity.szuletesnap|date }}</td>
+            </tr>
+            <tr>
+                <th>Anyja neve</th>
+                <td>{{ entity.anyjaNeve }}</td>
+            </tr>
+            <tr>
+                <th>Személyi igazolvány száma</th>
+                <td>{{ entity.szigSzam }}</td>
+            </tr>
+            <tr>
+                <th>Létrehozva</th>
+                <td>{{ entity.letrehozva|date }}</td>
+            </tr>
+            <tr>
+                <th>Létrehozta</th>
+                <td>{{ entity.letrehozo }}</td>
+            </tr>
+            <tr>
+                <th>Módosítva</th>
+                <td>{{ entity.modositva|date }}</td>
+            </tr>
+            <tr>
+                <th>Módosította</th>
+                <td>{{ entity.modosito }}</td>
+            </tr>
+        </tbody>
+    </table>
+    </div>
+        <ul class="record_actions">
+    <li>
+        <a href="{{ path('partner') }}">
+            Back to the list
+        </a>
+    </li>
+    <li>
+        <a href="{{ path('partner_edit', { 'id': entity.id }) }}">
+            Edit
+        </a>
+    </li>
+    <li>{{ form(delete_form) }}</li>
+</ul>
+{% endblock %}

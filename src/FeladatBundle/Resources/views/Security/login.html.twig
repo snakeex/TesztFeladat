@@ -1,5 +1,6 @@
 {% extends '::base.html.twig' %}
 {% form_theme form 'FeladatBundle:Form:fields.html.twig'%}
+{% block menu %}{% endblock %}
 {% block body %}
         {% if error %}
             <div>{{ error.messageKey|trans(error.messageData, 'security') }}</div>
@@ -8,8 +9,8 @@
         <div class="container">
             <div class="login-content">
                 {{ form_start(form, {'action': path('login_check'), 'method': 'POST'}) }} 
-                {{ form_widget(form._username) }}<br>
-                {{ form_widget(form._password) }}<br>
+                {{ form_widget(form.username) }}<br>
+                {{ form_widget(form.password) }}<br>
                 {{ form_widget(form.submit) }}
                 {{ form_end(form) }}
             </div>

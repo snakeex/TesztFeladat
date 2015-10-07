@@ -1,0 +1,30 @@
+nevelotag:
+    path:     /
+    defaults: { _controller: "FeladatBundle:NevElotag:index" }
+
+nevelotag_show:
+    path:     /{id}/show
+    defaults: { _controller: "FeladatBundle:NevElotag:show" }
+
+nevelotag_new:
+    path:     /new
+    defaults: { _controller: "FeladatBundle:NevElotag:new" }
+
+nevelotag_create:
+    path:     /create
+    defaults: { _controller: "FeladatBundle:NevElotag:create" }
+    methods:  POST
+
+nevelotag_edit:
+    path:     /{id}/edit
+    defaults: { _controller: "FeladatBundle:NevElotag:edit" }
+
+nevelotag_update:
+    path:     /{id}/update
+    defaults: { _controller: "FeladatBundle:NevElotag:update" }
+    methods:  [POST, PUT]
+
+nevelotag_delete:
+    path:     /{id}/delete
+    defaults: { _controller: "FeladatBundle:NevElotag:delete" }
+    methods:  [POST, DELETE]

@@ -1,0 +1,18 @@
+{% extends '::base.html.twig' %}
+
+{% form_theme edit_form 'FeladatBundle:Form:fields.html.twig' %}
+{% form_theme delete_form 'FeladatBundle:Form:fields.html.twig' %}
+
+{% block body -%}
+    <h2>Partner szerkesztés</h2>
+    <div class="content">
+        {{ form(edit_form) }}
+        {{ form(delete_form) }}
+
+        <div>
+                <a href="{{ path('partner') }}">
+                    Vissza
+                </a>
+        </div>
+    </div>
+{% endblock %}

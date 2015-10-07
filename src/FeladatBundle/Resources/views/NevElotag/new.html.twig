@@ -1,0 +1,14 @@
+{% extends '::base.html.twig' %}
+{% form_theme form 'FeladatBundle:Form:fields.html.twig' %}
+
+{% block body -%}
+    <h2>Név előtag létrehozás</h2>
+    <div class="content">
+        {{ form(form) }}
+        <div>
+                <a href="{{ path('nevelotag') }}">
+                    Vissza
+                </a>
+        </div>
+    </div>
+{% endblock %}

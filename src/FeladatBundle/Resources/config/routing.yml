@@ -1,3 +1,15 @@
+feladat_telephely:
+    resource: "@FeladatBundle/Resources/config/routing/telephely.yml"
+    prefix:   /telephely
+
+feladat_partner:
+    resource: "@FeladatBundle/Resources/config/routing/partner.yml"
+    prefix:   /partner
+
+feladat_nevelotag:
+    resource: "@FeladatBundle/Resources/config/routing/nevelotag.yml"
+    prefix:   /nevelotag
+
 index:
     path:     /
     defaults: { _controller: FeladatBundle:Index:index }
@@ -12,7 +24,14 @@ login_check:
 logout:
     path:   /logout
     
+register:
+    path:   /register
+    defaults: { _controller: FeladatBundle:Register:register }
+    
+register_create:
+    path:   /register/create
+    defaults: { _controller: FeladatBundle:Register:create }
+
 create:
     path:   /create
     defaults: { _controller: FeladatBundle:Default:create}
-

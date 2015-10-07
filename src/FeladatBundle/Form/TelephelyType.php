@@ -6,7 +6,7 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
-class UserType extends AbstractType
+class TelephelyType extends AbstractType
 {
     /**
      * @param FormBuilderInterface $builder
@@ -15,20 +15,22 @@ class UserType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('username','text',array(
-                'attr' => array(
-                'placeholder' => 'Felhasználó'
-            )))
-            ->add('password','password',array(
-                'attr' => array(
-                'placeholder' => 'Jelszó'
-            )))
-            ->add('submit', 'submit', array(
-                'label' => 'Belépés',
-                'attr' => array(
-                'title' => 'Belépés'
-            )))
-            
+            ->add('partner')
+            ->add('nev')
+            ->add('irsz')
+            ->add('telepules')
+            ->add('kozter')
+            ->add('hazsz')
+            ->add('telefon')
+            ->add('fax')
+            ->add('mobil')
+            ->add('email')
+            ->add('megjegyzes')
+            ->add('letrehozva')
+            ->add('letrehozo')
+            ->add('modositva')
+            ->add('modosito')
+            ->add('orszag')
         ;
     }
     
@@ -38,7 +40,7 @@ class UserType extends AbstractType
     public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
         $resolver->setDefaults(array(
-            'data_class' => 'FeladatBundle\Entity\User'
+            'data_class' => 'FeladatBundle\Entity\Telephely'
         ));
     }
 
@@ -47,6 +49,6 @@ class UserType extends AbstractType
      */
     public function getName()
     {
-        return 'login';
+        return 'feladatbundle_telephely';
     }
 }

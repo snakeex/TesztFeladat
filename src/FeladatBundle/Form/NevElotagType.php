@@ -6,7 +6,7 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
-class UserType extends AbstractType
+class NevElotagType extends AbstractType
 {
     /**
      * @param FormBuilderInterface $builder
@@ -15,20 +15,8 @@ class UserType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('username','text',array(
-                'attr' => array(
-                'placeholder' => 'Felhasználó'
-            )))
-            ->add('password','password',array(
-                'attr' => array(
-                'placeholder' => 'Jelszó'
-            )))
-            ->add('submit', 'submit', array(
-                'label' => 'Belépés',
-                'attr' => array(
-                'title' => 'Belépés'
-            )))
-            
+            ->add('nev', 'text')
+            ->add('leiras', 'textarea')
         ;
     }
     
@@ -38,7 +26,7 @@ class UserType extends AbstractType
     public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
         $resolver->setDefaults(array(
-            'data_class' => 'FeladatBundle\Entity\User'
+            'data_class' => 'FeladatBundle\Entity\NevElotag'
         ));
     }
 
@@ -47,6 +35,6 @@ class UserType extends AbstractType
      */
     public function getName()
     {
-        return 'login';
+        return 'feladatbundle_nevelotag';
     }
 }

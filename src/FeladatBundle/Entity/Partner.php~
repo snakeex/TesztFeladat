@@ -1,0 +1,293 @@
+<?php
+
+namespace FeladatBundle\Entity;
+
+use Doctrine\ORM\Mapping as ORM;
+
+/**
+ * Partner
+ *
+ * @ORM\Table(name="partner", indexes={@ORM\Index(name="szekhely_cim_orszag", columns={"szekhely_cim_orszag", "szamlazasi_cim_orszag", "postazasi_cim_orszag"}), @ORM\Index(name="tipus", columns={"tipus"}), @ORM\Index(name="nev_elotag", columns={"nev_elotag"}), @ORM\Index(name="szamlazasi_cim_orszag", columns={"szamlazasi_cim_orszag"}), @ORM\Index(name="postazasi_cim_orszag", columns={"postazasi_cim_orszag"}), @ORM\Index(name="IDX_312B3E16DC86DDFC", columns={"szekhely_cim_orszag"})})
+ * @ORM\Entity
+ */
+class Partner
+{
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="id", type="integer")
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="IDENTITY")
+     */
+    private $id;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="cegnev", type="string", length=255, nullable=false)
+     */
+    private $cegnev;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="vezeteknev", type="string", length=255, nullable=false)
+     */
+    private $vezeteknev;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="keresztnev", type="string", length=255, nullable=false)
+     */
+    private $keresztnev;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="szamlazasi_nev", type="string", length=255, nullable=false)
+     */
+    private $szamlazasiNev;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="partnertipus", type="string", length=255, nullable=false)
+     */
+    private $partnertipus;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="email", type="string", length=255, nullable=false)
+     */
+    private $email;
+
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="szekhely_cim_irsz", type="integer", nullable=false)
+     */
+    private $szekhelyCimIrsz;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="szekhely_cim_telepules", type="string", length=255, nullable=false)
+     */
+    private $szekhelyCimTelepules;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="szekhely_cim_kozter", type="string", length=255, nullable=false)
+     */
+    private $szekhelyCimKozter;
+
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="szekhely_cim_ihazsz", type="integer", nullable=false)
+     */
+    private $szekhelyCimIhazsz;
+
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="szamlazasi_cim_irsz", type="integer", nullable=false)
+     */
+    private $szamlazasiCimIrsz;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="szamlazasi_cim_telepules", type="string", length=255, nullable=false)
+     */
+    private $szamlazasiCimTelepules;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="szamlazasi_cim_kozter", type="string", length=255, nullable=false)
+     */
+    private $szamlazasiCimKozter;
+
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="szamlazasi_cim_hazsz", type="integer", nullable=false)
+     */
+    private $szamlazasiCimHazsz;
+
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="postazasi_cim_irsz", type="integer", nullable=false)
+     */
+    private $postazasiCimIrsz;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="postazasi_cim_telepules", type="string", length=255, nullable=false)
+     */
+    private $postazasiCimTelepules;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="postazasi_cim_kozter", type="string", length=255, nullable=false)
+     */
+    private $postazasiCimKozter;
+
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="postazasi_cim_hazsz", type="integer", nullable=false)
+     */
+    private $postazasiCimHazsz;
+
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="adoszam", type="integer", nullable=false)
+     */
+    private $adoszam;
+
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="eu_adoszam", type="integer", nullable=false)
+     */
+    private $euAdoszam;
+
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="cegbejegyzesi_szam", type="integer", nullable=false)
+     */
+    private $cegbejegyzesiSzam;
+
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="telefon", type="integer", nullable=false)
+     */
+    private $telefon;
+
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="fax", type="integer", nullable=false)
+     */
+    private $fax;
+
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="mobil", type="integer", nullable=false)
+     */
+    private $mobil;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="szuletesnap", type="string", length=25, nullable=false)
+     */
+    private $szuletesnap;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="anyja_neve", type="string", length=255, nullable=false)
+     */
+    private $anyjaNeve;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="szig_szam", type="string", length=8, nullable=false)
+     */
+    private $szigSzam;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="letrehozva", type="string", length=25, nullable=false)
+     */
+    private $letrehozva;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="letrehozo", type="string", length=255, nullable=false)
+     */
+    private $letrehozo;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="modositva", type="string", length=25, nullable=false)
+     */
+    private $modositva;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="modosito", type="string", length=255, nullable=false)
+     */
+    private $modosito;
+
+    /**
+     * @var \FeladatBundle\Entity\Cegtipus
+     *
+     * @ORM\ManyToOne(targetEntity="FeladatBundle\Entity\Cegtipus")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="tipus", referencedColumnName="id")
+     * })
+     */
+    private $tipus;
+
+    /**
+     * @var \FeladatBundle\Entity\Countries
+     *
+     * @ORM\ManyToOne(targetEntity="FeladatBundle\Entity\Countries")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="szekhely_cim_orszag", referencedColumnName="id")
+     * })
+     */
+    private $szekhelyCimOrszag;
+
+    /**
+     * @var \FeladatBundle\Entity\Countries
+     *
+     * @ORM\ManyToOne(targetEntity="FeladatBundle\Entity\Countries")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="szamlazasi_cim_orszag", referencedColumnName="id")
+     * })
+     */
+    private $szamlazasiCimOrszag;
+
+    /**
+     * @var \FeladatBundle\Entity\Countries
+     *
+     * @ORM\ManyToOne(targetEntity="FeladatBundle\Entity\Countries")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="postazasi_cim_orszag", referencedColumnName="id")
+     * })
+     */
+    private $postazasiCimOrszag;
+
+    /**
+     * @var \FeladatBundle\Entity\NevElotag
+     *
+     * @ORM\ManyToOne(targetEntity="FeladatBundle\Entity\NevElotag")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="nev_elotag", referencedColumnName="id")
+     * })
+     */
+    private $nevElotag;
+
+
+}
+

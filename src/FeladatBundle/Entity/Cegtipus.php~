@@ -1,0 +1,33 @@
+<?php
+
+namespace FeladatBundle\Entity;
+
+use Doctrine\ORM\Mapping as ORM;
+
+/**
+ * Cegtipus
+ *
+ * @ORM\Table(name="cegtipus")
+ * @ORM\Entity
+ */
+class Cegtipus
+{
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="id", type="integer")
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="IDENTITY")
+     */
+    private $id;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="tipus", type="string", length=255, nullable=false)
+     */
+    private $tipus;
+
+
+}
+

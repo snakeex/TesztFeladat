@@ -2,13 +2,13 @@
 
 namespace FeladatBundle\Entity;
 
-use Symfony\Component\Security\Core\User\UserInterface;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Security\Core\User\UserInterface;
 
 /**
  * User
  *
- * @ORM\Table(name="user", uniqueConstraints={@ORM\UniqueConstraint(name="felhasznalonev", columns={"felhasznalonev"})})
+ * @ORM\Table(name="user", uniqueConstraints={@ORM\UniqueConstraint(name="felhasznalonev", columns={"felhasznalonev"})}, indexes={@ORM\Index(name="nev_elotag", columns={"nev_elotag"})})
  * @ORM\Entity
  */
 class User implements UserInterface
@@ -21,13 +21,6 @@ class User implements UserInterface
      * @ORM\GeneratedValue(strategy="IDENTITY")
      */
     private $id;
-
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="nev_elotag", type="string", length=255, nullable=false)
-     */
-    private $nevElotag;
 
     /**
      * @var string
@@ -64,6 +57,16 @@ class User implements UserInterface
      */
     private $salt;
 
+    /**
+     * @var \FeladatBundle\Entity\NevElotag
+     *
+     * @ORM\ManyToOne(targetEntity="FeladatBundle\Entity\NevElotag")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="nev_elotag", referencedColumnName="id")
+     * })
+     */
+    protected $nevElotag;
+
 
 
     /**
@@ -74,30 +77,6 @@ class User implements UserInterface
     public function getId()
     {
         return $this->id;
-    }
-
-    /**
-     * Set nevElotag
-     *
-     * @param string $nevElotag
-     *
-     * @return User
-     */
-    public function setNevElotag($nevElotag)
-    {
-        $this->nevElotag = $nevElotag;
-
-        return $this;
-    }
-
-    /**
-     * Get nevElotag
-     *
-     * @return string
-     */
-    public function getNevElotag()
-    {
-        return $this->nevElotag;
     }
 
     /**
@@ -219,13 +198,37 @@ class User implements UserInterface
     {
         return $this->salt;
     }
+
+    /**
+     * Set nevElotag
+     *
+     * @param \FeladatBundle\Entity\NevElotag $nevElotag
+     *
+     * @return User
+     */
+    public function setNevElotag(\FeladatBundle\Entity\NevElotag $nevElotag = null)
+    {
+        $this->nevElotag = $nevElotag;
+
+        return $this;
+    }
+
+    /**
+     * Get nevElotag
+     *
+     * @return \FeladatBundle\Entity\NevElotag
+     */
+    public function getNevElotag()
+    {
+        return $this->nevElotag;
+    }
     
     public function getRoles()
     {
         return array('ROLE_USER');
     }
     
-    public function eraseCredentials(){
+    public function eraseCredentials() {
         
     }
 }

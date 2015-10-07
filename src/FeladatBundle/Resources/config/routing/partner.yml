@@ -1,0 +1,30 @@
+partner:
+    path:     /
+    defaults: { _controller: "FeladatBundle:Partner:index" }
+
+partner_show:
+    path:     /{id}/show
+    defaults: { _controller: "FeladatBundle:Partner:show" }
+
+partner_new:
+    path:     /new
+    defaults: { _controller: "FeladatBundle:Partner:new" }
+
+partner_create:
+    path:     /create
+    defaults: { _controller: "FeladatBundle:Partner:create" }
+    methods:  POST
+
+partner_edit:
+    path:     /{id}/edit
+    defaults: { _controller: "FeladatBundle:Partner:edit" }
+
+partner_update:
+    path:     /{id}/update
+    defaults: { _controller: "FeladatBundle:Partner:update" }
+    methods:  [POST, PUT]
+
+partner_delete:
+    path:     /{id}/delete
+    defaults: { _controller: "FeladatBundle:Partner:delete" }
+    methods:  [POST, DELETE]
