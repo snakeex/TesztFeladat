@@ -19,14 +19,21 @@ class TelephelyController extends Controller
      * Lists all Telephely entities.
      *
      */
-    public function indexAction()
+    public function indexAction(Request $request)
     {
         $em = $this->getDoctrine()->getManager();
+        
+        $dql = "SELECT a FROM FeladatBundle:Telephely a";
+        $query = $em->createQuery($dql);
 
-        $entities = $em->getRepository('FeladatBundle:Telephely')->findAll();
+        $paginator = $this->get('knp_paginator');
+        $pagination = $paginator->paginate(
+                $query,
+                $request->query->getInt('page', 1),
+                5);
 
-        return $this->render('FeladatBundle:Telephely:index.html.twig', array(
-            'entities' => $entities,
+        return $this->render('FeladatBundle:NevElotag:index.html.twig', array(
+            'pagination' => $pagination,
         ));
     }
     /**
@@ -41,6 +48,11 @@ class TelephelyController extends Controller
 
         if ($form->isValid()) {
             $em = $this->getDoctrine()->getManager();
+            
+            $curr_user = $this->get('security.token_storage')->getToken()->getUser();
+            $curr_user_name = $curr_user->getUsername();
+            $entity->setLetrehozo($curr_user_name);
+            
             $em->persist($entity);
             $em->flush();
 
@@ -170,6 +182,9 @@ class TelephelyController extends Controller
         $editForm->handleRequest($request);
 
         if ($editForm->isValid()) {
+            $curr_user = $this->get('security.token_storage')->getToken()->getUser();
+            $curr_user_name = $curr_user->getUsername();
+            $entity->setModosito($curr_user_name);
             $em->flush();
 
             return $this->redirect($this->generateUrl('telephely_edit', array('id' => $id)));

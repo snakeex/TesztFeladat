@@ -19,14 +19,21 @@ class NevElotagController extends Controller
      * Lists all NevElotag entities.
      *
      */
-    public function indexAction()
+    public function indexAction(Request $request)
     {
         $em = $this->getDoctrine()->getManager();
+        
+        $dql = "SELECT a FROM FeladatBundle:NevElotag a";
+        $query = $em->createQuery($dql);
 
-        $entities = $em->getRepository('FeladatBundle:NevElotag')->findAll();
+        $paginator = $this->get('knp_paginator');
+        $pagination = $paginator->paginate(
+                $query,
+                $request->query->getInt('page', 1),
+                5);
 
         return $this->render('FeladatBundle:NevElotag:index.html.twig', array(
-            'entities' => $entities,
+            'pagination' => $pagination,
         ));
     }
     /**

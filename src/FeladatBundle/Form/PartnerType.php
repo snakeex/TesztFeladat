@@ -38,7 +38,7 @@ class PartnerType extends AbstractType
             ->add('partnertipus','text', array(
                     'label' => 'Partnertípus'
                 ))
-            ->add('email','text', array(
+            ->add('email','email', array(
                     'label' => 'E-mail'
                 ))
             ->add('szekhelyCimOrszag','entity', array(
@@ -54,7 +54,7 @@ class PartnerType extends AbstractType
             ->add('szekhelyCimKozter','text', array(
                     'label' => 'Székhely cím -közterület'
                 ))
-            ->add('szekhelyCimIhazsz','text', array(
+            ->add('szekhelyCimIhazsz','integer', array(
                     'label' => 'Székhely cím -házszám'
                 ))
             ->add('szamlazasiCimOrszag','entity', array(
@@ -86,10 +86,10 @@ class PartnerType extends AbstractType
             ->add('postazasiCimKozter','text', array(
                     'label' => 'Postázási cím -közterület'
                 ))
-            ->add('postazasiCimHazsz','text', array(
+            ->add('postazasiCimHazsz','integer', array(
                     'label' => 'Postázási cím -házszám'
                 ))
-            ->add('adoszam','text', array(
+            ->add('adoszam','number', array(
                     'label' => 'Adószám'
                 ))
             ->add('euAdoszam','text', array(

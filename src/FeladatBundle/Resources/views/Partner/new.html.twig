@@ -2,12 +2,39 @@
 
 {% block body -%}
     <h2>Partner létrehozás</h2>
-    <div class="content">
-        {{ form(form) }}
-        <div>
-                <a href="{{ path('partner') }}">
-                    Vissza
-                </a>
-        </div>
+    <a class="iframe" href="http://localhost/symfony/TesztFeladat/web/app_dev.php/nevelotag/new">This shows...</a>
+    {{ form(form) }}
+    <div>
+        <a href="{{ path('partner') }}">
+            Vissza
+        </a>
     </div>
+{% endblock %}
+{% block javascripts %}
+    {{ parent() }}
+    <script type="text/javascript">
+        $(document).ready(function () {
+
+            /* This is basic - uses default settings */
+
+            $("a#single_image").fancybox();
+
+            /* Using custom settings */
+
+            $("a#inline").fancybox({
+                'hideOnContentClick': true
+            });
+
+            /* Apply fancybox to multiple items */
+
+            $("a.group").fancybox({
+                'transitionIn': 'elastic',
+                'transitionOut': 'elastic',
+                'speedIn': 600,
+                'speedOut': 200,
+                'overlayShow': false
+            });
+
+        });
+    </script>
 {% endblock %}

@@ -4,6 +4,7 @@ namespace FeladatBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\Common\Collections\ArrayCollection;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * NevElotag
@@ -26,6 +27,13 @@ class NevElotag
     /**
      * @var string
      *
+     * @Assert\Length(
+     *      min = 2,
+     *      max = 5,
+     *      minMessage = "túl rövid",
+     *      maxMessage = "túl hosszú"
+     * )
+     * 
      * @ORM\Column(name="nev", type="string", length=255, nullable=false)
      */
     private $nev;

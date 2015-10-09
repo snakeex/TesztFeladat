@@ -1,14 +1,51 @@
 {% extends '::base.html.twig' %}
-{% form_theme form 'FeladatBundle:Form:fields.html.twig' %}
 
 {% block body -%}
     <h2>Név előtag létrehozás</h2>
     <div class="content">
         {{ form(form) }}
         <div>
-                <a href="{{ path('nevelotag') }}">
-                    Vissza
-                </a>
+            <a href="{{ path('nevelotag') }}">
+                Vissza
+            </a>
         </div>
     </div>
+{% endblock %}
+{% block javascripts %}
+    {{ parent() }}
+    <script type="text/javascript">
+        /*$(document).ready(function () {
+
+            $('form').submit(function (event) {
+                var formData = {
+                    'name': $('input[name=nev]').val(),
+                };
+
+                $.ajax({
+                    type: 'POST',
+                    url: 'create',
+                    data: formData,
+                    dataType: 'json',
+                    encode: true
+                })
+
+                        .done(function (data) {
+                            console.log(data);
+                            if (!data.success) {
+                                if (data.errors.name) {
+                                    $('#name-group').addClass('has-error');
+                                    $('#name-group').append('<div class="help-block">' + data.errors.name + '</div>');
+                                }
+                            } else {
+                                $('form').append('<div class="alert alert-success">' + data.message + '</div>');
+                                alert('success');
+                            }
+                        });
+
+                event.preventDefault();
+            });
+
+
+        });*/
+    </script>
 {% endblock %}

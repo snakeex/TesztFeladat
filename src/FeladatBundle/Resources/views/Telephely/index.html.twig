@@ -8,25 +8,21 @@
             <tr>
                 <th>Id</th>
                 <th>Partner</th>
-                <th>Nev</th>
-                <th>Irsz</th>
-                <th>Telepules</th>
-                <th>Kozter</th>
-                <th>Hazsz</th>
+                <th>Név</th>
+                <th>Irányítószám</th>
+                <th>Település</th>
+                <th>Köztér</th>
+                <th>Házszám</th>
                 <th>Telefon</th>
                 <th>Fax</th>
                 <th>Mobil</th>
                 <th>Email</th>
-                <th>Megjegyzes</th>
-                <th>Letrehozva</th>
-                <th>Letrehozo</th>
-                <th>Modositva</th>
-                <th>Modosito</th>
+                <th>Megjegyzés</th>
                 <th>Actions</th>
             </tr>
         </thead>
         <tbody>
-        {% for entity in entities %}
+        {% for entity in pagination %}
             <tr>
                 <td><a href="{{ path('telephely_show', { 'id': entity.id }) }}">{{ entity.id }}</a></td>
                 <td>{{ entity.partner }}</td>
@@ -40,10 +36,6 @@
                 <td>{{ entity.mobil }}</td>
                 <td>{{ entity.email }}</td>
                 <td>{{ entity.megjegyzes }}</td>
-                <td>{{ entity.letrehozva }}</td>
-                <td>{{ entity.letrehozo }}</td>
-                <td>{{ entity.modositva }}</td>
-                <td>{{ entity.modosito }}</td>
                 <td>
                 <ul>
                     <li>
@@ -66,4 +58,7 @@
             </a>
         </li>
     </ul>
+    <div class="navigation">
+        {{ knp_pagination_render(pagination) }}
+    </div>
     {% endblock %}
