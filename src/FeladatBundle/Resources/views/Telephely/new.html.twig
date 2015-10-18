@@ -1,13 +1,20 @@
 {% extends '::base.html.twig' %}
 
 {% block body -%}
-    <h2>Telephely létrehozás</h2>
-    <div class="content">
-        {{ form(form) }}
-        <div>
-            <a href="{{ path('telephely') }}">
-                Vissza
-            </a>
+    <div class="body-container">
+        <h2>Telephely létrehozás</h2>
+        <p>A *-gal jelölt mezők kitöltése kötelező</p>
+        <div class="content">
+            {{ form(form) }}
+            <div>
+                <a href="{{ path('telephely') }}">
+                    Vissza
+                </a>
+            </div>
         </div>
     </div>
+{% endblock %}
+{% block javascripts %}
+    {{ parent() }}
+    <script type="text/javascript" src="{{ asset('/bundles/feladat/js/telephely.js') }}"></script>
 {% endblock %}

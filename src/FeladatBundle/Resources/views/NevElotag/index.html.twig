@@ -1,53 +1,52 @@
 {% extends '::base.html.twig' %}
 
 {% block body -%}
-    <h2>Név előtag lista</h2>
-    <div class="table-responsive">
-        <table class="records_list table-striped table-condensed table-bordered">
-            <thead>
-                <tr>
-                    <th>Név</th>
-                    <th>Leírás</th>
-                    <th>Létrehozva</th>
-                    <th>Létrehozta</th>
-                    <th>Módosítva</th>
-                    <th>Módosította</th>
-                    <th>Actions</th>
-                </tr>
-            </thead>
-            <tbody>
-                {% for entity in pagination %}
+    <div class="body-container">
+        <h2>Név előtag lista</h2>
+        <div class="table-responsive">
+            <table class="records_list table-striped table-condensed table-bordered">
+                <thead>
                     <tr>
-                        <td><a href="{{ path('nevelotag_show', { 'id': entity.id }) }}">{{ entity.nev }}</td>
-                        <td>{{ entity.leiras }}</td>
-                        <td>{{ entity.letrehozva|date }}</td>
-                        <td>{{ entity.letrehozo }}</td>
-                        <td>{{ entity.modositva|date }}</td>
-                        <td>{{ entity.modosito }}</td>
-                        <td>
-                            <ul>
-                                <li>
-                                    <a href="{{ path('nevelotag_show', { 'id': entity.id }) }}">show</a>
-                                </li>
-                                <li>
-                                    <a href="{{ path('nevelotag_edit', { 'id': entity.id }) }}">edit</a>
-                                </li>
-                            </ul>
-                        </td>
+                        <th>{{ knp_pagination_sortable(pagination, 'Rendezés', 'a.nev') }}</th>
+                        <th></th>
+                        <th></th>                      
                     </tr>
-                {% endfor %}
-            </tbody>
-        </table>
-    </div>
+                    <tr>
+                        <th>Név</th>
+                        <th>Leírás</th>
+                        <th>Műveletek</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for entity in pagination %}
+                        <tr>
+                            <td><a href="{{ path('nevelotag_show', { 'id': entity.id }) }}">{{ entity.nev }}</td>
+                            <td>{{ entity.leiras }}</td>
+                            <td>
+                                <ul>
+                                    <li>
+                                        <a href="{{ path('nevelotag_show', { 'id': entity.id }) }}">Részletek</a>
+                                    </li>
+                                    <li>
+                                        <a href="{{ path('nevelotag_edit', { 'id': entity.id }) }}">Szerkesztés</a>
+                                    </li>
+                                </ul>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
 
-    <ul>
-        <li>
-            <a href="{{ path('nevelotag_new') }}">
-                Create a new entry
-            </a>
-        </li>
-    </ul>
-    <div class="navigation">
-        {{ knp_pagination_render(pagination) }}
+        <ul>
+            <li>
+                <a href="{{ path('nevelotag_new') }}">
+                    Új létrehozása
+                </a>
+            </li>
+        </ul>
+        <div class="navigation">
+            {{ knp_pagination_render(pagination) }}
+        </div>
     </div>
 {% endblock %}

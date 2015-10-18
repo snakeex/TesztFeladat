@@ -9,6 +9,7 @@ use Doctrine\ORM\Mapping as ORM;
  *
  * @ORM\Table(name="telephely", indexes={@ORM\Index(name="orszag", columns={"orszag"}), @ORM\Index(name="orszag_2", columns={"orszag"})})
  * @ORM\Entity
+ * @ORM\HasLifecycleCallbacks()
  */
 class Telephely
 {
@@ -22,9 +23,12 @@ class Telephely
     private $id;
 
     /**
-     * @var string
+     * @var \FeladatBundle\Entity\Partner
      *
-     * @ORM\Column(name="partner", type="string", length=255, nullable=false)
+     @ORM\ManyToOne(targetEntity="FeladatBundle\Entity\Partner", inversedBy="telephelyek")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="partner", referencedColumnName="id")
+     * })
      */
     private $partner;
 
@@ -90,6 +94,11 @@ class Telephely
      * @ORM\Column(name="email", type="string", length=255, nullable=false)
      */
     private $email;
+    
+    /**
+     * @ORM\Column(type="boolean")
+     */
+    private $alapertelmezett;
 
     /**
      * @var string
@@ -129,7 +138,7 @@ class Telephely
     /**
      * @var \FeladatBundle\Entity\Countries
      *
-     * @ORM\ManyToOne(targetEntity="FeladatBundle\Entity\Countries")
+     * @ORM\ManyToOne(targetEntity="FeladatBundle\Entity\Countries", inversedBy="telephelyek")
      * @ORM\JoinColumns({
      *   @ORM\JoinColumn(name="orszag", referencedColumnName="id")
      * })
@@ -387,6 +396,28 @@ class Telephely
     {
         return $this->email;
     }
+    
+    /**
+     * Set alapertelmezett
+     * 
+     * @return Telephely
+     */
+    public function setAlapertelmezett($alapertelmezett)
+    {
+        $this->alapertelmezett = $alapertelmezett;
+        
+        return $this;
+    }
+    
+    /**
+     * Get alapertelmezett
+     * 
+     * @return boolean
+     */
+    public function getAlapertelmezett()
+    {
+        return $this->alapertelmezett;
+    }
 
     /**
      * Set megjegyzes
@@ -413,17 +444,11 @@ class Telephely
     }
 
     /**
-     * Set letrehozva
-     *
-     * @param string $letrehozva
-     *
-     * @return Telephely
+     * @ORM\prePersist
      */
-    public function setLetrehozva($letrehozva)
+    public function setLetrehozva()
     {
-        $this->letrehozva = $letrehozva;
-
-        return $this;
+        $this->letrehozva = time();
     }
 
     /**
@@ -461,17 +486,12 @@ class Telephely
     }
 
     /**
-     * Set modositva
-     *
-     * @param string $modositva
-     *
-     * @return Telephely
+     * @ORM\preUpdate
+     * @ORM\prePersist
      */
-    public function setModositva($modositva)
+    public function setModositva()
     {
-        $this->modositva = $modositva;
-
-        return $this;
+        $this->modositva = time();
     }
 
     /**

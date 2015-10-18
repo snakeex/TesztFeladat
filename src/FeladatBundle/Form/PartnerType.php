@@ -17,104 +17,147 @@ class PartnerType extends AbstractType
         $builder
             ->add('tipus', 'entity', array(
                     'label' => 'Típus',
-                    'class' => 'FeladatBundle:Cegtipus'
+                    'class' => 'FeladatBundle:Cegtipus',
+                    'required' => true,
+                    'placeholder' => '--Válasszon!--',
                 ))
             ->add('cegnev','text', array(
-                    'label' => 'Cégnév'
+                    'label' => 'Cégnév',
+                    'required' => false,
                 ))
             ->add('nevElotag','entity', array(
                     'label' => 'Név előtag',
-                    'class' => 'FeladatBundle:NevElotag'
+                    'class' => 'FeladatBundle:NevElotag',
+                    'property' => 'nev',
+                    'required' => false,
+                    //'placeholder' => '--Válasszon!--',
+                    'empty_data' => null,
                 ))
             ->add('vezeteknev','text', array(
-                    'label' => 'Vezetéknév'
+                    'label' => 'Vezetéknév',
+                    'required' => false,
                 ))
             ->add('keresztnev','text', array(
-                    'label' => 'Keresztnév'
+                    'label' => 'Keresztnév',
+                    'required' => false,
                 ))
             ->add('szamlazasiNev','text', array(
-                    'label' => 'Számlázási név'
+                    'label' => 'Számlázási név',
+                    'required' => false,
                 ))
-            ->add('partnertipus','text', array(
-                    'label' => 'Partnertípus'
+            ->add('partnertipus','entity', array(
+                    'label' => 'Partnertípus',
+                    'class' => 'FeladatBundle:Partnertipus',
+                    'required' => true,
+                    'placeholder' => '--Válasszon!--',
                 ))
             ->add('email','email', array(
-                    'label' => 'E-mail'
+                    'label' => 'E-mail',
+                    'required' => false,
                 ))
             ->add('szekhelyCimOrszag','entity', array(
                     'label' => 'Székhely cím -ország',
-                    'class' => 'FeladatBundle:Countries'
+                    'class' => 'FeladatBundle:Countries',
+                    'required' => true,
+                    'placeholder' => '--Válasszon!--',
                 ))
             ->add('szekhelyCimIrsz','text', array(
-                    'label' => 'Székhely cím -irányítószám'
+                    'label' => 'Székhely cím -irányítószám',
+                    'required' => true,
                 ))
             ->add('szekhelyCimTelepules','text', array(
-                    'label' => 'Székhely cím -település'
+                    'label' => 'Székhely cím -település',
+                    'required' => true,
                 ))
             ->add('szekhelyCimKozter','text', array(
-                    'label' => 'Székhely cím -közterület'
+                    'label' => 'Székhely cím -közterület',
+                    'required' => true,
                 ))
             ->add('szekhelyCimIhazsz','integer', array(
-                    'label' => 'Székhely cím -házszám'
+                    'label' => 'Székhely cím -házszám',
+                    'required' => true,
                 ))
             ->add('szamlazasiCimOrszag','entity', array(
                     'label' => 'Számlázási cím -ország',
-                    'class' => 'FeladatBundle:Countries'
+                    'class' => 'FeladatBundle:Countries',
+                    'required' => true,
+                    'placeholder' => '--Válasszon--!',
                 ))
             ->add('szamlazasiCimIrsz','text', array(
-                    'label' => 'Számlázási cím -irányítószám'
+                    'label' => 'Számlázási cím -irányítószám',
+                    'required' => true,
                 ))
             ->add('szamlazasiCimTelepules','text', array(
-                    'label' => 'Számlázási cím -település'
+                    'label' => 'Számlázási cím -település',
+                    'required' => true,
                 ))
             ->add('szamlazasiCimKozter','text', array(
-                    'label' => 'Számlázási cím -közterület'
+                    'label' => 'Számlázási cím -közterület',
+                    'required' => true,
                 ))
             ->add('szamlazasiCimHazsz','text', array(
-                    'label' => 'Számlázási cím -házszám'
+                    'label' => 'Számlázási cím -házszám',
+                    'required' => true,
                 ))
             ->add('postazasiCimOrszag','entity', array(
                     'label' => 'Postázási cím -ország',
-                    'class' => 'FeladatBundle:Countries'
+                    'class' => 'FeladatBundle:Countries',
+                    'required' => true,
+                    'placeholder' => '--Válasszon!--',
                 ))
             ->add('postazasiCimIrsz','text', array(
-                    'label' => 'Postázási cím -irányítószám'
+                    'label' => 'Postázási cím -irányítószám',
+                    'required' => true,
                 ))
             ->add('postazasiCimTelepules','text', array(
-                    'label' => 'Postázási cím -település'
+                    'label' => 'Postázási cím -település',
+                    'required' => true,
                 ))
             ->add('postazasiCimKozter','text', array(
-                    'label' => 'Postázási cím -közterület'
+                    'label' => 'Postázási cím -közterület',
+                    'required' => true,
                 ))
             ->add('postazasiCimHazsz','integer', array(
-                    'label' => 'Postázási cím -házszám'
+                    'label' => 'Postázási cím -házszám',
+                    'required' => true,
                 ))
             ->add('adoszam','number', array(
-                    'label' => 'Adószám'
+                    'label' => 'Adószám',
+                    'required' => false,
                 ))
             ->add('euAdoszam','text', array(
-                    'label' => 'EU adószám'
+                    'label' => 'EU adószám',
+                    'required' => false,
                 ))
             ->add('cegbejegyzesiSzam','text', array(
-                    'label' => 'Cégbejegyzési szám'
+                    'label' => 'Cégbejegyzési szám',
+                    'required' => false,
                 ))
             ->add('telefon','text', array(
-                    'label' => 'Telefon'
+                    'label' => 'Telefon',
+                    'required' => false,
                 ))
             ->add('fax','text', array(
-                    'label' => 'Fax'
+                    'label' => 'Fax',
+                    'required' => false,
                 ))
             ->add('mobil','text', array(
-                    'label' => 'Mobil'
+                    'label' => 'Mobil',
+                    'required' => false,
                 ))
-            ->add('szuletesnap','text', array(
-                    'label' => 'Születésnap'
+            ->add('szuletesnap','birthday', array(
+                    'label' => 'Születésnap',
+                    'required' => false,
+                    'placeholder' => array('year' => 'Év', 'month' => 'Hónap', 'day' => 'Nap'),
+                    'input' => 'timestamp',
                 ))
             ->add('anyjaNeve','text', array(
-                    'label' => 'Anyja neve'
+                    'label' => 'Anyja neve',
+                    'required' => false,
                 ))
             ->add('szigSzam','text', array(
-                    'label' => 'Személyi igazolvány száma'
+                    'label' => 'Személyi igazolvány száma',
+                    'required' => false,
                 ))
                 ;
     }

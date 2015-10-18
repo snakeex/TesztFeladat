@@ -60,7 +60,7 @@ class User implements UserInterface
     /**
      * @var \FeladatBundle\Entity\NevElotag
      *
-     * @ORM\ManyToOne(targetEntity="FeladatBundle\Entity\NevElotag")
+     * @ORM\ManyToOne(targetEntity="FeladatBundle\Entity\NevElotag", inversedBy="felhasznalok")
      * @ORM\JoinColumns({
      *   @ORM\JoinColumn(name="nev_elotag", referencedColumnName="id")
      * })

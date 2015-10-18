@@ -74,14 +74,18 @@ class NevElotag
     private $modosito;
     
     /**
-     *
-     * @ORM\OneToMany(targetEntity="User", mappedBy="nevElotag")
      * @ORM\OneToMany(targetEntity="Partner", mappedBy="nevElotag")
      */
-    protected $elotagok;
+    protected $partnerek;
+    
+    /**
+     * @ORM\OneToMany(targetEntity="User", mappedBy="nevElotag")
+     */
+    protected $felhasznalok;
     
     public function __construct(){
-        $this->elotagok = new ArrayCollection();
+        $this->partnerek = new ArrayCollection();
+        $this->felhasznalok = new ArrayCollection();
     }
     
     public function __toString() {
@@ -190,6 +194,7 @@ class NevElotag
 
     /**
      * @ORM\preUpdate
+     * @ORM\prePersist
      */
     public function setModositva()
     {
@@ -228,5 +233,67 @@ class NevElotag
     public function getModosito()
     {
         return $this->modosito;
+    }
+    
+    public function getPartnerek(){
+        return $this->partnerek;
+    }
+
+    /**
+     * Add partnerek
+     *
+     * @param \FeladatBundle\Entity\User $partnerek
+     *
+     * @return NevElotag
+     */
+    public function addPartnerek(\FeladatBundle\Entity\User $partnerek)
+    {
+        $this->partnerek[] = $partnerek;
+
+        return $this;
+    }
+
+    /**
+     * Remove partnerek
+     *
+     * @param \FeladatBundle\Entity\User $partnerek
+     */
+    public function removePartnerek(\FeladatBundle\Entity\User $partnerek)
+    {
+        $this->partnerek->removeElement($partnerek);
+    }
+
+    /**
+     * Add felhasznalok
+     *
+     * @param \FeladatBundle\Entity\User $felhasznalok
+     *
+     * @return NevElotag
+     */
+    public function addFelhasznalok(\FeladatBundle\Entity\User $felhasznalok)
+    {
+        $this->felhasznalok[] = $felhasznalok;
+
+        return $this;
+    }
+
+    /**
+     * Remove felhasznalok
+     *
+     * @param \FeladatBundle\Entity\User $felhasznalok
+     */
+    public function removeFelhasznalok(\FeladatBundle\Entity\User $felhasznalok)
+    {
+        $this->felhasznalok->removeElement($felhasznalok);
+    }
+
+    /**
+     * Get felhasznalok
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getFelhasznalok()
+    {
+        return $this->felhasznalok;
     }
 }

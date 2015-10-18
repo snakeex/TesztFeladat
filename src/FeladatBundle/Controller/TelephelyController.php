@@ -32,7 +32,7 @@ class TelephelyController extends Controller
                 $request->query->getInt('page', 1),
                 5);
 
-        return $this->render('FeladatBundle:NevElotag:index.html.twig', array(
+        return $this->render('FeladatBundle:Telephely:index.html.twig', array(
             'pagination' => $pagination,
         ));
     }
@@ -55,6 +55,8 @@ class TelephelyController extends Controller
             
             $em->persist($entity);
             $em->flush();
+            
+            $nextAction = $form->get('saveAndAdd')->isClicked() ? 'telephely_new' : 'telephely_show';
 
             return $this->redirect($this->generateUrl('telephely_show', array('id' => $entity->getId())));
         }
@@ -79,7 +81,12 @@ class TelephelyController extends Controller
             'method' => 'POST',
         ));
 
-        $form->add('submit', 'submit', array('label' => 'Create'));
+        $form->add('save', 'submit', array(
+            'label' => 'Mentés',
+        ))
+        ->add('saveAndAdd', 'submit', array(
+            'label' => 'Mentés és új',
+        ));
 
         return $form;
     }

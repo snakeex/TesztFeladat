@@ -3,15 +3,16 @@
 namespace FeladatBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Doctrine\Common\Collections\ArrayCollection;
 
 /**
  * Countries
  *
- * @ORM\Table(name="countries", uniqueConstraints={@ORM\UniqueConstraint(name="countryName", columns={"countryName"}), @ORM\UniqueConstraint(name="countryName_2", columns={"countryName"}), @ORM\UniqueConstraint(name="countryName_3", columns={"countryName"})})
+ * @ORM\Table(name="telephelyek", uniqueConstraints={@ORM\UniqueConstraint(name="countryName", columns={"countryName"}), @ORM\UniqueConstraint(name="countryName_2", columns={"countryName"}), @ORM\UniqueConstraint(name="countryName_3", columns={"countryName"})})
  * @ORM\Entity
  */
-class Countries
-{
+class Countries {
+
     /**
      * @var integer
      *
@@ -35,6 +36,79 @@ class Countries
      */
     private $countryname = '';
 
+    /**
+     * @ORM\OneToMany(targetEntity="Telephely", mappedBy="orszag")
+     
+     */
+    protected $telephelyekOrsz;
+    
+    /**
+     * @ORM\OneToMany(targetEntity="Partner", mappedBy="szekhelyCimOrszag")
+     * @ORM\OneToMany(targetEntity="Partner", mappedBy="szamlazasiCimOrszag")
+     * @ORM\OneToMany(targetEntity="Partner", mappedBy="postazasiCimOrszag")
+     */
+    protected $countries;
+
+    public function __construct() {
+        $this->telephelyekOrsz = new ArrayCollection();
+        $this->countries = new ArrayCollection();
+    }
+
+    public function __toString() {
+        return "{$this->getCountryname()}";
+    }
+
+    /**
+     * Get id
+     *
+     * @return integer
+     */
+    public function getId() {
+        return $this->id;
+    }
+
+    /**
+     * Set countrycode
+     *
+     * @param string $countrycode
+     *
+     * @return Countries
+     */
+    public function setCountrycode($countrycode) {
+        $this->countrycode = $countrycode;
+
+        return $this;
+    }
+
+    /**
+     * Get countrycode
+     *
+     * @return string
+     */
+    public function getCountrycode() {
+        return $this->countrycode;
+    }
+
+    /**
+     * Set countryname
+     *
+     * @param string $countryname
+     *
+     * @return Countries
+     */
+    public function setCountryname($countryname) {
+        $this->countryname = $countryname;
+
+        return $this;
+    }
+
+    /**
+     * Get countryname
+     *
+     * @return string
+     */
+    public function getCountryname() {
+        return $this->countryname;
+    }
 
 }
-

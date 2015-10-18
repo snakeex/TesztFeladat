@@ -1,64 +1,57 @@
 {% extends '::base.html.twig' %}
 
 {% block body -%}
-    <h1>Telephely list</h1>
-
-    <table class="records_list">
-        <thead>
-            <tr>
-                <th>Id</th>
-                <th>Partner</th>
-                <th>Név</th>
-                <th>Irányítószám</th>
-                <th>Település</th>
-                <th>Köztér</th>
-                <th>Házszám</th>
-                <th>Telefon</th>
-                <th>Fax</th>
-                <th>Mobil</th>
-                <th>Email</th>
-                <th>Megjegyzés</th>
-                <th>Actions</th>
-            </tr>
-        </thead>
-        <tbody>
-        {% for entity in pagination %}
-            <tr>
-                <td><a href="{{ path('telephely_show', { 'id': entity.id }) }}">{{ entity.id }}</a></td>
-                <td>{{ entity.partner }}</td>
-                <td>{{ entity.nev }}</td>
-                <td>{{ entity.irsz }}</td>
-                <td>{{ entity.telepules }}</td>
-                <td>{{ entity.kozter }}</td>
-                <td>{{ entity.hazsz }}</td>
-                <td>{{ entity.telefon }}</td>
-                <td>{{ entity.fax }}</td>
-                <td>{{ entity.mobil }}</td>
-                <td>{{ entity.email }}</td>
-                <td>{{ entity.megjegyzes }}</td>
-                <td>
-                <ul>
-                    <li>
-                        <a href="{{ path('telephely_show', { 'id': entity.id }) }}">show</a>
-                    </li>
-                    <li>
-                        <a href="{{ path('telephely_edit', { 'id': entity.id }) }}">edit</a>
-                    </li>
-                </ul>
-                </td>
-            </tr>
-        {% endfor %}
-        </tbody>
-    </table>
+    <div class="body-container">
+        <h2>Telephely lista</h2>
+        <div class="table-responsive">
+            <table class="records_list table-striped table-condensed table-bordered">
+                <thead>
+                    <tr>
+                        <th>Név</th>
+                        <th>Partner</th>              
+                        <th>Cím</th>               
+                        <th>Telefon</th>
+                        <th>Fax</th>
+                        <th>Mobil</th>
+                        <th>Email</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for entity in pagination %}
+                        <tr>
+                            <td><a href="{{ path('telephely_show', { 'id': entity.id }) }}">{{ entity.nev }}</a></td>
+                            <td>{{ entity.partner }}</td>               
+                            <td>{{ entity.irsz }} {{ entity.telepules }} {{ entity.kozter }} {{ entity.hazsz }}</td>
+                            <td>{{ entity.telefon }}</td>
+                            <td>{{ entity.fax }}</td>
+                            <td>{{ entity.mobil }}</td>
+                            <td>{{ entity.email }}</td>
+                            <td>
+                                <ul>
+                                    <li>
+                                        <a href="{{ path('telephely_show', { 'id': entity.id }) }}">Részletek</a>
+                                    </li>
+                                    <li>
+                                        <a href="{{ path('telephely_edit', { 'id': entity.id }) }}">Szerkesztés</a>
+                                    </li>
+                                </ul>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
 
         <ul>
-        <li>
-            <a href="{{ path('telephely_new') }}">
-                Create a new entry
-            </a>
-        </li>
-    </ul>
-    <div class="navigation">
-        {{ knp_pagination_render(pagination) }}
+            <li>
+                <a href="{{ path('telephely_new') }}">
+                    Új hozzáadása
+                </a>
+            </li>
+        </ul>
+        <div class="navigation">
+            {{ knp_pagination_render(pagination) }}
+        </div>
     </div>
-    {% endblock %}
+{% endblock %}

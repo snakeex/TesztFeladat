@@ -4,15 +4,17 @@ namespace FeladatBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
+use Doctrine\Common\Collections\ArrayCollection;
 
 /**
  * Partner
  *
  * @ORM\Table(name="partner", indexes={@ORM\Index(name="szekhely_cim_orszag", columns={"szekhely_cim_orszag", "szamlazasi_cim_orszag", "postazasi_cim_orszag"}), @ORM\Index(name="tipus", columns={"tipus"}), @ORM\Index(name="nev_elotag", columns={"nev_elotag"}), @ORM\Index(name="szamlazasi_cim_orszag", columns={"szamlazasi_cim_orszag"}), @ORM\Index(name="postazasi_cim_orszag", columns={"postazasi_cim_orszag"}), @ORM\Index(name="IDX_312B3E16DC86DDFC", columns={"szekhely_cim_orszag"})})
  * @ORM\Entity
+ * @ORM\HasLifecycleCallbacks()
  */
-class Partner
-{
+class Partner {
+
     /**
      * @var integer
      *
@@ -51,9 +53,12 @@ class Partner
     private $szamlazasiNev;
 
     /**
-     * @var string
+     * @var \FeladatBundle\Entity\Partnertipus
      *
-     * @ORM\Column(name="partnertipus", type="string", length=255, nullable=false)
+     * @ORM\ManyToOne(targetEntity="FeladatBundle\Entity\Partnertipus", inversedBy="partnertipusok")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="partnertipus", referencedColumnName="id")
+     * })
      */
     private $partnertipus;
 
@@ -242,7 +247,7 @@ class Partner
     /**
      * @var \FeladatBundle\Entity\Cegtipus
      *
-     * @ORM\ManyToOne(targetEntity="FeladatBundle\Entity\Cegtipus")
+     * @ORM\ManyToOne(targetEntity="FeladatBundle\Entity\Cegtipus", inversedBy="tipusok")
      * @ORM\JoinColumns({
      *   @ORM\JoinColumn(name="tipus", referencedColumnName="id")
      * })
@@ -252,7 +257,7 @@ class Partner
     /**
      * @var \FeladatBundle\Entity\Countries
      *
-     * @ORM\ManyToOne(targetEntity="FeladatBundle\Entity\Countries")
+     * @ORM\ManyToOne(targetEntity="FeladatBundle\Entity\Countries", inversedBy="countries")
      * @ORM\JoinColumns({
      *   @ORM\JoinColumn(name="szekhely_cim_orszag", referencedColumnName="id")
      * })
@@ -262,7 +267,7 @@ class Partner
     /**
      * @var \FeladatBundle\Entity\Countries
      *
-     * @ORM\ManyToOne(targetEntity="FeladatBundle\Entity\Countries")
+     * @ORM\ManyToOne(targetEntity="FeladatBundle\Entity\Countries", inversedBy="countries")
      * @ORM\JoinColumns({
      *   @ORM\JoinColumn(name="szamlazasi_cim_orszag", referencedColumnName="id")
      * })
@@ -272,7 +277,7 @@ class Partner
     /**
      * @var \FeladatBundle\Entity\Countries
      *
-     * @ORM\ManyToOne(targetEntity="FeladatBundle\Entity\Countries")
+     * @ORM\ManyToOne(targetEntity="FeladatBundle\Entity\Countries", inversedBy="countries")
      * @ORM\JoinColumns({
      *   @ORM\JoinColumn(name="postazasi_cim_orszag", referencedColumnName="id")
      * })
@@ -282,22 +287,36 @@ class Partner
     /**
      * @var \FeladatBundle\Entity\NevElotag
      *
-     * @ORM\ManyToOne(targetEntity="FeladatBundle\Entity\NevElotag")
+     * @ORM\ManyToOne(targetEntity="FeladatBundle\Entity\NevElotag", inversedBy="partnerek")
      * @ORM\JoinColumns({
      *   @ORM\JoinColumn(name="nev_elotag", referencedColumnName="id")
      * })
      */
     private $nevElotag;
 
+    /**
+     * @ORM\OneToMany(targetEntity="Telephely", mappedBy="partner")
+     */
+    protected $telephelyek;
 
+    public function __construct() {
+        $this->telephelyek = new ArrayCollection();
+    }
+
+    public function __toString() {
+        if ($this->getCegnev() == "") {
+            return "{$this->getVezeteknev()} {$this->getKeresztnev()}";
+        }else{
+            return "{$this->getCegnev()}";
+        }
+    }
 
     /**
      * Get id
      *
      * @return integer
      */
-    public function getId()
-    {
+    public function getId() {
         return $this->id;
     }
 
@@ -308,8 +327,7 @@ class Partner
      *
      * @return Partner
      */
-    public function setCegnev($cegnev)
-    {
+    public function setCegnev($cegnev) {
         $this->cegnev = $cegnev;
 
         return $this;
@@ -320,8 +338,7 @@ class Partner
      *
      * @return string
      */
-    public function getCegnev()
-    {
+    public function getCegnev() {
         return $this->cegnev;
     }
 
@@ -332,8 +349,7 @@ class Partner
      *
      * @return Partner
      */
-    public function setVezeteknev($vezeteknev)
-    {
+    public function setVezeteknev($vezeteknev) {
         $this->vezeteknev = $vezeteknev;
 
         return $this;
@@ -344,8 +360,7 @@ class Partner
      *
      * @return string
      */
-    public function getVezeteknev()
-    {
+    public function getVezeteknev() {
         return $this->vezeteknev;
     }
 
@@ -356,8 +371,7 @@ class Partner
      *
      * @return Partner
      */
-    public function setKeresztnev($keresztnev)
-    {
+    public function setKeresztnev($keresztnev) {
         $this->keresztnev = $keresztnev;
 
         return $this;
@@ -368,8 +382,7 @@ class Partner
      *
      * @return string
      */
-    public function getKeresztnev()
-    {
+    public function getKeresztnev() {
         return $this->keresztnev;
     }
 
@@ -380,8 +393,7 @@ class Partner
      *
      * @return Partner
      */
-    public function setSzamlazasiNev($szamlazasiNev)
-    {
+    public function setSzamlazasiNev($szamlazasiNev) {
         $this->szamlazasiNev = $szamlazasiNev;
 
         return $this;
@@ -392,20 +404,18 @@ class Partner
      *
      * @return string
      */
-    public function getSzamlazasiNev()
-    {
+    public function getSzamlazasiNev() {
         return $this->szamlazasiNev;
     }
 
     /**
      * Set partnertipus
      *
-     * @param string $partnertipus
+     * @param \FeladatBundle\Entity\Partnertipus $partnertipus
      *
      * @return Partner
      */
-    public function setPartnertipus($partnertipus)
-    {
+    public function setPartnertipus(\FeladatBundle\Entity\Partnertipus $partnertipus = null) {
         $this->partnertipus = $partnertipus;
 
         return $this;
@@ -414,10 +424,9 @@ class Partner
     /**
      * Get partnertipus
      *
-     * @return string
+     * @return \FeladatBundle\Entity\Partnertipus
      */
-    public function getPartnertipus()
-    {
+    public function getPartnertipus() {
         return $this->partnertipus;
     }
 
@@ -428,8 +437,7 @@ class Partner
      *
      * @return Partner
      */
-    public function setEmail($email)
-    {
+    public function setEmail($email) {
         $this->email = $email;
 
         return $this;
@@ -440,8 +448,7 @@ class Partner
      *
      * @return string
      */
-    public function getEmail()
-    {
+    public function getEmail() {
         return $this->email;
     }
 
@@ -452,8 +459,7 @@ class Partner
      *
      * @return Partner
      */
-    public function setSzekhelyCimIrsz($szekhelyCimIrsz)
-    {
+    public function setSzekhelyCimIrsz($szekhelyCimIrsz) {
         $this->szekhelyCimIrsz = $szekhelyCimIrsz;
 
         return $this;
@@ -464,8 +470,7 @@ class Partner
      *
      * @return integer
      */
-    public function getSzekhelyCimIrsz()
-    {
+    public function getSzekhelyCimIrsz() {
         return $this->szekhelyCimIrsz;
     }
 
@@ -476,8 +481,7 @@ class Partner
      *
      * @return Partner
      */
-    public function setSzekhelyCimTelepules($szekhelyCimTelepules)
-    {
+    public function setSzekhelyCimTelepules($szekhelyCimTelepules) {
         $this->szekhelyCimTelepules = $szekhelyCimTelepules;
 
         return $this;
@@ -488,8 +492,7 @@ class Partner
      *
      * @return string
      */
-    public function getSzekhelyCimTelepules()
-    {
+    public function getSzekhelyCimTelepules() {
         return $this->szekhelyCimTelepules;
     }
 
@@ -500,8 +503,7 @@ class Partner
      *
      * @return Partner
      */
-    public function setSzekhelyCimKozter($szekhelyCimKozter)
-    {
+    public function setSzekhelyCimKozter($szekhelyCimKozter) {
         $this->szekhelyCimKozter = $szekhelyCimKozter;
 
         return $this;
@@ -512,8 +514,7 @@ class Partner
      *
      * @return string
      */
-    public function getSzekhelyCimKozter()
-    {
+    public function getSzekhelyCimKozter() {
         return $this->szekhelyCimKozter;
     }
 
@@ -524,8 +525,7 @@ class Partner
      *
      * @return Partner
      */
-    public function setSzekhelyCimIhazsz($szekhelyCimIhazsz)
-    {
+    public function setSzekhelyCimIhazsz($szekhelyCimIhazsz) {
         $this->szekhelyCimIhazsz = $szekhelyCimIhazsz;
 
         return $this;
@@ -536,8 +536,7 @@ class Partner
      *
      * @return integer
      */
-    public function getSzekhelyCimIhazsz()
-    {
+    public function getSzekhelyCimIhazsz() {
         return $this->szekhelyCimIhazsz;
     }
 
@@ -548,8 +547,7 @@ class Partner
      *
      * @return Partner
      */
-    public function setSzamlazasiCimIrsz($szamlazasiCimIrsz)
-    {
+    public function setSzamlazasiCimIrsz($szamlazasiCimIrsz) {
         $this->szamlazasiCimIrsz = $szamlazasiCimIrsz;
 
         return $this;
@@ -560,8 +558,7 @@ class Partner
      *
      * @return integer
      */
-    public function getSzamlazasiCimIrsz()
-    {
+    public function getSzamlazasiCimIrsz() {
         return $this->szamlazasiCimIrsz;
     }
 
@@ -572,8 +569,7 @@ class Partner
      *
      * @return Partner
      */
-    public function setSzamlazasiCimTelepules($szamlazasiCimTelepules)
-    {
+    public function setSzamlazasiCimTelepules($szamlazasiCimTelepules) {
         $this->szamlazasiCimTelepules = $szamlazasiCimTelepules;
 
         return $this;
@@ -584,8 +580,7 @@ class Partner
      *
      * @return string
      */
-    public function getSzamlazasiCimTelepules()
-    {
+    public function getSzamlazasiCimTelepules() {
         return $this->szamlazasiCimTelepules;
     }
 
@@ -596,8 +591,7 @@ class Partner
      *
      * @return Partner
      */
-    public function setSzamlazasiCimKozter($szamlazasiCimKozter)
-    {
+    public function setSzamlazasiCimKozter($szamlazasiCimKozter) {
         $this->szamlazasiCimKozter = $szamlazasiCimKozter;
 
         return $this;
@@ -608,8 +602,7 @@ class Partner
      *
      * @return string
      */
-    public function getSzamlazasiCimKozter()
-    {
+    public function getSzamlazasiCimKozter() {
         return $this->szamlazasiCimKozter;
     }
 
@@ -620,8 +613,7 @@ class Partner
      *
      * @return Partner
      */
-    public function setSzamlazasiCimHazsz($szamlazasiCimHazsz)
-    {
+    public function setSzamlazasiCimHazsz($szamlazasiCimHazsz) {
         $this->szamlazasiCimHazsz = $szamlazasiCimHazsz;
 
         return $this;
@@ -632,8 +624,7 @@ class Partner
      *
      * @return integer
      */
-    public function getSzamlazasiCimHazsz()
-    {
+    public function getSzamlazasiCimHazsz() {
         return $this->szamlazasiCimHazsz;
     }
 
@@ -644,8 +635,7 @@ class Partner
      *
      * @return Partner
      */
-    public function setPostazasiCimIrsz($postazasiCimIrsz)
-    {
+    public function setPostazasiCimIrsz($postazasiCimIrsz) {
         $this->postazasiCimIrsz = $postazasiCimIrsz;
 
         return $this;
@@ -656,8 +646,7 @@ class Partner
      *
      * @return integer
      */
-    public function getPostazasiCimIrsz()
-    {
+    public function getPostazasiCimIrsz() {
         return $this->postazasiCimIrsz;
     }
 
@@ -668,8 +657,7 @@ class Partner
      *
      * @return Partner
      */
-    public function setPostazasiCimTelepules($postazasiCimTelepules)
-    {
+    public function setPostazasiCimTelepules($postazasiCimTelepules) {
         $this->postazasiCimTelepules = $postazasiCimTelepules;
 
         return $this;
@@ -680,8 +668,7 @@ class Partner
      *
      * @return string
      */
-    public function getPostazasiCimTelepules()
-    {
+    public function getPostazasiCimTelepules() {
         return $this->postazasiCimTelepules;
     }
 
@@ -692,8 +679,7 @@ class Partner
      *
      * @return Partner
      */
-    public function setPostazasiCimKozter($postazasiCimKozter)
-    {
+    public function setPostazasiCimKozter($postazasiCimKozter) {
         $this->postazasiCimKozter = $postazasiCimKozter;
 
         return $this;
@@ -704,8 +690,7 @@ class Partner
      *
      * @return string
      */
-    public function getPostazasiCimKozter()
-    {
+    public function getPostazasiCimKozter() {
         return $this->postazasiCimKozter;
     }
 
@@ -716,8 +701,7 @@ class Partner
      *
      * @return Partner
      */
-    public function setPostazasiCimHazsz($postazasiCimHazsz)
-    {
+    public function setPostazasiCimHazsz($postazasiCimHazsz) {
         $this->postazasiCimHazsz = $postazasiCimHazsz;
 
         return $this;
@@ -728,8 +712,7 @@ class Partner
      *
      * @return integer
      */
-    public function getPostazasiCimHazsz()
-    {
+    public function getPostazasiCimHazsz() {
         return $this->postazasiCimHazsz;
     }
 
@@ -740,8 +723,7 @@ class Partner
      *
      * @return Partner
      */
-    public function setAdoszam($adoszam)
-    {
+    public function setAdoszam($adoszam) {
         $this->adoszam = $adoszam;
 
         return $this;
@@ -752,8 +734,7 @@ class Partner
      *
      * @return integer
      */
-    public function getAdoszam()
-    {
+    public function getAdoszam() {
         return $this->adoszam;
     }
 
@@ -764,8 +745,7 @@ class Partner
      *
      * @return Partner
      */
-    public function setEuAdoszam($euAdoszam)
-    {
+    public function setEuAdoszam($euAdoszam) {
         $this->euAdoszam = $euAdoszam;
 
         return $this;
@@ -776,8 +756,7 @@ class Partner
      *
      * @return integer
      */
-    public function getEuAdoszam()
-    {
+    public function getEuAdoszam() {
         return $this->euAdoszam;
     }
 
@@ -788,8 +767,7 @@ class Partner
      *
      * @return Partner
      */
-    public function setCegbejegyzesiSzam($cegbejegyzesiSzam)
-    {
+    public function setCegbejegyzesiSzam($cegbejegyzesiSzam) {
         $this->cegbejegyzesiSzam = $cegbejegyzesiSzam;
 
         return $this;
@@ -800,8 +778,7 @@ class Partner
      *
      * @return integer
      */
-    public function getCegbejegyzesiSzam()
-    {
+    public function getCegbejegyzesiSzam() {
         return $this->cegbejegyzesiSzam;
     }
 
@@ -812,8 +789,7 @@ class Partner
      *
      * @return Partner
      */
-    public function setTelefon($telefon)
-    {
+    public function setTelefon($telefon) {
         $this->telefon = $telefon;
 
         return $this;
@@ -824,8 +800,7 @@ class Partner
      *
      * @return integer
      */
-    public function getTelefon()
-    {
+    public function getTelefon() {
         return $this->telefon;
     }
 
@@ -836,8 +811,7 @@ class Partner
      *
      * @return Partner
      */
-    public function setFax($fax)
-    {
+    public function setFax($fax) {
         $this->fax = $fax;
 
         return $this;
@@ -848,8 +822,7 @@ class Partner
      *
      * @return integer
      */
-    public function getFax()
-    {
+    public function getFax() {
         return $this->fax;
     }
 
@@ -860,8 +833,7 @@ class Partner
      *
      * @return Partner
      */
-    public function setMobil($mobil)
-    {
+    public function setMobil($mobil) {
         $this->mobil = $mobil;
 
         return $this;
@@ -872,8 +844,7 @@ class Partner
      *
      * @return integer
      */
-    public function getMobil()
-    {
+    public function getMobil() {
         return $this->mobil;
     }
 
@@ -884,8 +855,7 @@ class Partner
      *
      * @return Partner
      */
-    public function setSzuletesnap($szuletesnap)
-    {
+    public function setSzuletesnap($szuletesnap) {
         $this->szuletesnap = $szuletesnap;
 
         return $this;
@@ -896,8 +866,7 @@ class Partner
      *
      * @return string
      */
-    public function getSzuletesnap()
-    {
+    public function getSzuletesnap() {
         return $this->szuletesnap;
     }
 
@@ -908,8 +877,7 @@ class Partner
      *
      * @return Partner
      */
-    public function setAnyjaNeve($anyjaNeve)
-    {
+    public function setAnyjaNeve($anyjaNeve) {
         $this->anyjaNeve = $anyjaNeve;
 
         return $this;
@@ -920,8 +888,7 @@ class Partner
      *
      * @return string
      */
-    public function getAnyjaNeve()
-    {
+    public function getAnyjaNeve() {
         return $this->anyjaNeve;
     }
 
@@ -932,8 +899,7 @@ class Partner
      *
      * @return Partner
      */
-    public function setSzigSzam($szigSzam)
-    {
+    public function setSzigSzam($szigSzam) {
         $this->szigSzam = $szigSzam;
 
         return $this;
@@ -944,23 +910,16 @@ class Partner
      *
      * @return string
      */
-    public function getSzigSzam()
-    {
+    public function getSzigSzam() {
         return $this->szigSzam;
     }
 
     /**
-     * Set letrehozva
+     * @ORM\prePersist
      *
-     * @param string $letrehozva
-     *
-     * @return Partner
      */
-    public function setLetrehozva($letrehozva)
-    {
-        $this->letrehozva = $letrehozva;
-
-        return $this;
+    public function setLetrehozva() {
+        $this->letrehozva = time();
     }
 
     /**
@@ -968,8 +927,7 @@ class Partner
      *
      * @return string
      */
-    public function getLetrehozva()
-    {
+    public function getLetrehozva() {
         return $this->letrehozva;
     }
 
@@ -980,8 +938,7 @@ class Partner
      *
      * @return Partner
      */
-    public function setLetrehozo($letrehozo)
-    {
+    public function setLetrehozo($letrehozo) {
         $this->letrehozo = $letrehozo;
 
         return $this;
@@ -992,21 +949,16 @@ class Partner
      *
      * @return string
      */
-    public function getLetrehozo()
-    {
+    public function getLetrehozo() {
         return $this->letrehozo;
     }
 
     /**
-     * Set modositva
-     *
-     * @param string $modositva
-     *
-     * @return Partner
+     * @ORM\preUpdate
+     * @ORM\prePersist
      */
-    public function setModositva($modositva)
-    {
-        $this->modositva = $modositva;
+    public function setModositva() {
+        $this->modositva = time();
 
         return $this;
     }
@@ -1016,8 +968,7 @@ class Partner
      *
      * @return string
      */
-    public function getModositva()
-    {
+    public function getModositva() {
         return $this->modositva;
     }
 
@@ -1028,8 +979,7 @@ class Partner
      *
      * @return Partner
      */
-    public function setModosito($modosito)
-    {
+    public function setModosito($modosito) {
         $this->modosito = $modosito;
 
         return $this;
@@ -1040,8 +990,7 @@ class Partner
      *
      * @return string
      */
-    public function getModosito()
-    {
+    public function getModosito() {
         return $this->modosito;
     }
 
@@ -1052,8 +1001,7 @@ class Partner
      *
      * @return Partner
      */
-    public function setTipus(\FeladatBundle\Entity\Cegtipus $tipus = null)
-    {
+    public function setTipus(\FeladatBundle\Entity\Cegtipus $tipus = null) {
         $this->tipus = $tipus;
 
         return $this;
@@ -1064,8 +1012,7 @@ class Partner
      *
      * @return \FeladatBundle\Entity\Cegtipus
      */
-    public function getTipus()
-    {
+    public function getTipus() {
         return $this->tipus;
     }
 
@@ -1076,8 +1023,7 @@ class Partner
      *
      * @return Partner
      */
-    public function setSzekhelyCimOrszag(\FeladatBundle\Entity\Countries $szekhelyCimOrszag = null)
-    {
+    public function setSzekhelyCimOrszag(\FeladatBundle\Entity\Countries $szekhelyCimOrszag = null) {
         $this->szekhelyCimOrszag = $szekhelyCimOrszag;
 
         return $this;
@@ -1088,8 +1034,7 @@ class Partner
      *
      * @return \FeladatBundle\Entity\Countries
      */
-    public function getSzekhelyCimOrszag()
-    {
+    public function getSzekhelyCimOrszag() {
         return $this->szekhelyCimOrszag;
     }
 
@@ -1100,8 +1045,7 @@ class Partner
      *
      * @return Partner
      */
-    public function setSzamlazasiCimOrszag(\FeladatBundle\Entity\Countries $szamlazasiCimOrszag = null)
-    {
+    public function setSzamlazasiCimOrszag(\FeladatBundle\Entity\Countries $szamlazasiCimOrszag = null) {
         $this->szamlazasiCimOrszag = $szamlazasiCimOrszag;
 
         return $this;
@@ -1112,8 +1056,7 @@ class Partner
      *
      * @return \FeladatBundle\Entity\Countries
      */
-    public function getSzamlazasiCimOrszag()
-    {
+    public function getSzamlazasiCimOrszag() {
         return $this->szamlazasiCimOrszag;
     }
 
@@ -1124,8 +1067,7 @@ class Partner
      *
      * @return Partner
      */
-    public function setPostazasiCimOrszag(\FeladatBundle\Entity\Countries $postazasiCimOrszag = null)
-    {
+    public function setPostazasiCimOrszag(\FeladatBundle\Entity\Countries $postazasiCimOrszag = null) {
         $this->postazasiCimOrszag = $postazasiCimOrszag;
 
         return $this;
@@ -1136,8 +1078,7 @@ class Partner
      *
      * @return \FeladatBundle\Entity\Countries
      */
-    public function getPostazasiCimOrszag()
-    {
+    public function getPostazasiCimOrszag() {
         return $this->postazasiCimOrszag;
     }
 
@@ -1148,8 +1089,7 @@ class Partner
      *
      * @return Partner
      */
-    public function setNevElotag(\FeladatBundle\Entity\NevElotag $nevElotag = null)
-    {
+    public function setNevElotag(\FeladatBundle\Entity\NevElotag $nevElotag = null) {
         $this->nevElotag = $nevElotag;
 
         return $this;
@@ -1160,8 +1100,42 @@ class Partner
      *
      * @return \FeladatBundle\Entity\NevElotag
      */
-    public function getNevElotag()
-    {
+    public function getNevElotag() {
         return $this->nevElotag;
+    }
+
+
+    /**
+     * Add telephelyek
+     *
+     * @param \FeladatBundle\Entity\Telephely $telephelyek
+     *
+     * @return Partner
+     */
+    public function addTelephelyek(\FeladatBundle\Entity\Telephely $telephelyek)
+    {
+        $this->telephelyek[] = $telephelyek;
+
+        return $this;
+    }
+
+    /**
+     * Remove telephelyek
+     *
+     * @param \FeladatBundle\Entity\Telephely $telephelyek
+     */
+    public function removeTelephelyek(\FeladatBundle\Entity\Telephely $telephelyek)
+    {
+        $this->telephelyek->removeElement($telephelyek);
+    }
+
+    /**
+     * Get telephelyek
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getTelephelyek()
+    {
+        return $this->telephelyek;
     }
 }

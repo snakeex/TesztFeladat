@@ -15,9 +15,16 @@ class NevElotagType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('nev', 'text')
-            ->add('leiras', 'textarea')
-        ;
+            ->add('nev', 'text', array(
+                'label' => 'Név',
+                'required' => true,
+            ))
+            ->add('leiras', 'textarea', array(
+                'label' => 'Leírás',
+                'required' => false,
+            ))
+            
+            ;
     }
     
     /**

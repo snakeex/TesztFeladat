@@ -1,40 +1,36 @@
 {% extends '::base.html.twig' %}
 
 {% block body -%}
-    <h2>Partner létrehozás</h2>
-    <a class="iframe" href="http://localhost/symfony/TesztFeladat/web/app_dev.php/nevelotag/new">This shows...</a>
-    {{ form(form) }}
-    <div>
-        <a href="{{ path('partner') }}">
-            Vissza
-        </a>
+    <div class="body-container">
+        <h2>Partner létrehozás</h2>
+        <p>A *-gal jelölt mezők kitöltése kötelező</p>
+        {{ form(form) }}
+        <div>
+            <a href="{{ path('partner') }}">
+                Vissza
+            </a>
+        </div>
     </div>
+            
+    {#<div class="modal fade" id="new_role" role="dialog" aria-labelledby="new_role-label" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title" id="new_role-label">Add new role</h4>
+            </div>
+            <div class="modal-body">
+                {{ render(controller('FeladatBundle:Partner:elotag')) }}
+            </div>
+            <div class="modal-footer">
+               <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                 <button type="button" class="btn btn-primary" id="save_role">Save role</button>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->#}
 {% endblock %}
 {% block javascripts %}
     {{ parent() }}
-    <script type="text/javascript">
-        $(document).ready(function () {
-
-            /* This is basic - uses default settings */
-
-            $("a#single_image").fancybox();
-
-            /* Using custom settings */
-
-            $("a#inline").fancybox({
-                'hideOnContentClick': true
-            });
-
-            /* Apply fancybox to multiple items */
-
-            $("a.group").fancybox({
-                'transitionIn': 'elastic',
-                'transitionOut': 'elastic',
-                'speedIn': 600,
-                'speedOut': 200,
-                'overlayShow': false
-            });
-
-        });
-    </script>
+    <script type="text/javascript" src="{{ asset('/bundles/feladat/js/partner.js') }}"></script>
 {% endblock %}

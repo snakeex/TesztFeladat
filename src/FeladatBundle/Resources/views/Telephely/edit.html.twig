@@ -4,15 +4,17 @@
 {% form_theme delete_form 'FeladatBundle:Form:fields.html.twig' %}
 
 {% block body -%}
-    <h2>Név előtag szerkesztés</h2>
-    <div class="content">
-        {{ form(edit_form) }}
-        {{ form(delete_form) }}
+    <div class="body-container">
+        <h2>Telephely szerkesztése</h2>
+        <div class="content">
+            {{ form(edit_form) }}
+            {{ form(delete_form) }}
 
-        <div>
+            <div>
                 <a href="{{ path('telephely') }}">
                     Vissza
                 </a>
+            </div>
         </div>
     </div>
 {% endblock %}
