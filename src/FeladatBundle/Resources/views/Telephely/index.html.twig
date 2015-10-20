@@ -1,55 +1,67 @@
 {% extends '::base.html.twig' %}
-
+{% block title %}Telephelyek{% endblock %}
 {% block body -%}
     <div class="body-container">
         <h2>Telephely lista</h2>
+        <ul>
+            <li>
+                <a href="{{ path('telephely_new') }}">
+                    <span class="glyphicon glyphicon-star"></span> Új hozzáadása
+                </a>
+            </li>
+        </ul>
         <div class="table-responsive">
             <table class="records_list table-striped table-condensed table-bordered">
                 <thead>
                     <tr>
+                        <th>{{ knp_pagination_sortable(pagination, 'Rendezés', 'a.nev') }}</th>
+                        <th>{{ knp_pagination_sortable(pagination, 'Rendezés', 'a.partner') }}</th>
+                        <th></th>
+                        <th></th>
+                        <th></th>
+                        <th></th>
+                        <th></th>
+                        <th colspan="3"></th>
+                    </tr>
+                    <tr>
                         <th>Név</th>
-                        <th>Partner</th>              
+                        <th>Partner</th>
                         <th>Cím</th>               
                         <th>Telefon</th>
                         <th>Fax</th>
                         <th>Mobil</th>
-                        <th>Email</th>
-                        <th>Actions</th>
+                        <th>E-mail</th>
+                        <th colspan="3">Műveletek</th>
                     </tr>
                 </thead>
                 <tbody>
                     {% for entity in pagination %}
                         <tr>
-                            <td><a href="{{ path('telephely_show', { 'id': entity.id }) }}">{{ entity.nev }}</a></td>
-                            <td>{{ entity.partner }}</td>               
+                            <td>{{ entity.nev }}</td>
+                            <td>{{ entity.partner }}</td>
                             <td>{{ entity.irsz }} {{ entity.telepules }} {{ entity.kozter }} {{ entity.hazsz }}</td>
                             <td>{{ entity.telefon }}</td>
                             <td>{{ entity.fax }}</td>
                             <td>{{ entity.mobil }}</td>
                             <td>{{ entity.email }}</td>
                             <td>
-                                <ul>
-                                    <li>
-                                        <a href="{{ path('telephely_show', { 'id': entity.id }) }}">Részletek</a>
-                                    </li>
-                                    <li>
-                                        <a href="{{ path('telephely_edit', { 'id': entity.id }) }}">Szerkesztés</a>
-                                    </li>
-                                </ul>
+                                <a href="{{ path('telephely_show', { 'id': entity.id }) }}">Megtekintés</a>
+                            </td>
+                            <td>
+                                <a href="{{ path('telephely_edit', { 'id': entity.id }) }}">Módosítás</a>
+                            </td>
+
+                            <td class="record_delete">
+                                <form action="{{ path('telephely_delete', { 'id': entity.id }) }}" method="POST" >
+                                    <input type="hidden" name="_method" value="DELETE"  />
+                                    {{ form_widget(deleteForm[entity.id]) }} 
+                                </form>
                             </td>
                         </tr>
                     {% endfor %}
                 </tbody>
             </table>
         </div>
-
-        <ul>
-            <li>
-                <a href="{{ path('telephely_new') }}">
-                    Új hozzáadása
-                </a>
-            </li>
-        </ul>
         <div class="navigation">
             {{ knp_pagination_render(pagination) }}
         </div>

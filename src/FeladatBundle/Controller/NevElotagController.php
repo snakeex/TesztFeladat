@@ -27,8 +27,16 @@ class NevElotagController extends Controller {
         $pagination = $paginator->paginate(
                 $query, $request->query->getInt('page', 1), 5);
 
+        $deleteForm = array();
+
+        foreach ($pagination as $entity) {
+            $thisId = $entity->getId();
+            $deleteForm[$thisId] = $this->createDeleteForm($thisId)->createView();
+        }
+        
         return $this->render('FeladatBundle:NevElotag:index.html.twig', array(
                     'pagination' => $pagination,
+                    'deleteForm' => $deleteForm,
         ));
     }
 
@@ -92,7 +100,7 @@ class NevElotagController extends Controller {
         $form->add('save', 'submit', array(
             'label' => 'Mentés',
         ))
-        -add('saveAndAdd', 'submit', array(
+        ->add('saveAndAdd', 'submit', array(
             'label' => 'Mentés és új',
         ));
         return $form;
@@ -169,7 +177,7 @@ class NevElotagController extends Controller {
             'method' => 'PUT',
         ));
 
-        $form->add('submit', 'submit', array('label' => 'Update'));
+        $form->add('submit', 'submit', array('label' => 'Módosít'));
 
         return $form;
     }
@@ -241,7 +249,7 @@ class NevElotagController extends Controller {
         return $this->createFormBuilder()
                         ->setAction($this->generateUrl('nevelotag_delete', array('id' => $id)))
                         ->setMethod('DELETE')
-                        ->add('submit', 'submit', array('label' => 'Delete'))
+                        ->add('submit', 'submit', array('label' => 'Törlés'))
                         ->getForm()
         ;
     }

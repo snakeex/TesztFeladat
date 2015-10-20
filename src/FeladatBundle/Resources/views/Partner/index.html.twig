@@ -1,11 +1,30 @@
 {% extends '::base.html.twig' %}
 
+{% block title %}Partnerek{% endblock %}
 {% block body -%}
     <div class="body-container">
         <h2>Partnerek</h2>
+        <ul>
+            <li>
+                <a href="{{ path('partner_new') }}">
+                    <span class="glyphicon glyphicon-star"></span> Új létrehozása
+                </a>
+            </li>
+        </ul>
         <div class="table-responsive">
             <table class="records_list table-striped table-condensed table-bordered">
                 <thead>
+                    <tr>
+                        <th>{{ knp_pagination_sortable(pagination, 'Rendezés', 'a.cegnev') }}</th>
+                        <th>{{ knp_pagination_sortable(pagination, 'Rendezés', 'a.vezeteknev') }}</th>
+                        <th></th>
+                        <th></th>
+                        <th></th>
+                        <th></th>
+                        <th></th>
+                        <th></th>
+                        <th colspan="3"></th>
+                    </tr>
                     <tr>
                         <th>Cégnév</th>
                         <th>Név</th>
@@ -15,13 +34,13 @@
                         <th>Telefon</th>
                         <th>Fax</th>
                         <th>Mobil</th>             
-                        <th>Actions</th>
+                        <th colspan="3">Műveletek</th>
                     </tr>
                 </thead>
                 <tbody>
                     {% for entity in pagination %}
                         <tr>
-                            <td><a href="{{ path('partner_show', { 'id': entity.id }) }}">{{ entity.cegnev }}</a></td>
+                            <td>{{ entity.cegnev }}</td>
                             <td>{{ entity.vezeteknev }} {{ entity.keresztnev }}</td>
                             <td>{{ entity.partnertipus }}</td>
                             <td>{{ entity.email }}</td>
@@ -30,27 +49,22 @@
                             <td>{{ entity.fax }}</td>
                             <td>{{ entity.mobil }}</td>
                             <td>
-                                <ul>
-                                    <li>
-                                        <a href="{{ path('partner_show', { 'id': entity.id }) }}">Részletek</a>
-                                    </li>
-                                    <li>
-                                        <a href="{{ path('partner_edit', { 'id': entity.id }) }}">Szerkesztés</a>
-                                    </li>
-                                </ul>
+                                <a href="{{ path('partner_show', { 'id': entity.id }) }}">Megtekintés</a>
+                            </td>
+                            <td>
+                                <a href="{{ path('partner_edit', { 'id': entity.id }) }}">Módosítás</a>
+                            </td>
+                            <td class="record_delete">
+                                <form action="{{ path('partner_delete', { 'id': entity.id }) }}" method="POST" >
+                                    <input type="hidden" name="_method" value="DELETE"  />
+                                    {{ form_widget(deleteForm[entity.id]) }} 
+                                </form>
                             </td>
                         </tr>
                     {% endfor %}
                 </tbody>
             </table>
         </div>
-        <ul>
-            <li>
-                <a href="{{ path('partner_new') }}">
-                    Create a new entry
-                </a>
-            </li>
-        </ul>
         <div class="navigation">
             {{ knp_pagination_render(pagination) }}
         </div>

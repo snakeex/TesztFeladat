@@ -1,5 +1,6 @@
 {% extends '::base.html.twig' %}
 
+{% block title %}Partner - részletek{% endblock %}
 {% block stylesheets %}
     {{ parent() }}
     <link rel="stylesheet" href="{{ asset('bundles/feladat/tab/style.css') }}" type="text/css" media="screen" />
@@ -178,7 +179,10 @@
                         <tr>
                             <td><a href="{{ path('telephely_show', { 'id': entity.id }) }}">{{ entity.nev }}</a></td>
                             <td>{{ entity.partner }}</td>               
-                            <td>{{ entity.irsz }} {{ entity.telepules }} {{ entity.kozter }} {{ entity.hazsz }}</td>
+                            <td>
+                                {{ entity.irsz }} {{ entity.telepules }} {{ entity.kozter }} {{ entity.hazsz }}<br>
+                                Alapértelmezett: {{ entity.alapertelmezett ? 'Igen' : 'Nem' }}
+                            </td>
                             <td>{{ entity.telefon }}</td>
                             <td>{{ entity.fax }}</td>
                             <td>{{ entity.mobil }}</td>

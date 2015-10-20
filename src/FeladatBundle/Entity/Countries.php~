@@ -8,7 +8,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 /**
  * Countries
  *
- * @ORM\Table(name="telephelyek", uniqueConstraints={@ORM\UniqueConstraint(name="countryName", columns={"countryName"}), @ORM\UniqueConstraint(name="countryName_2", columns={"countryName"}), @ORM\UniqueConstraint(name="countryName_3", columns={"countryName"})})
+ * @ORM\Table(name="countries", uniqueConstraints={@ORM\UniqueConstraint(name="countryName", columns={"countryName"}), @ORM\UniqueConstraint(name="countryName_2", columns={"countryName"}), @ORM\UniqueConstraint(name="countryName_3", columns={"countryName"})})
  * @ORM\Entity
  */
 class Countries {
@@ -37,10 +37,9 @@ class Countries {
     private $countryname = '';
 
     /**
-     * @ORM\OneToMany(targetEntity="Telephely", mappedBy="orszag")
-     
+     * @ORM\OneToMany(targetEntity="Telephely", mappedBy="orszag")   
      */
-    protected $telephelyekOrsz;
+    protected $telephelyek;
     
     /**
      * @ORM\OneToMany(targetEntity="Partner", mappedBy="szekhelyCimOrszag")
@@ -50,7 +49,7 @@ class Countries {
     protected $countries;
 
     public function __construct() {
-        $this->telephelyekOrsz = new ArrayCollection();
+        $this->telephelyek = new ArrayCollection();
         $this->countries = new ArrayCollection();
     }
 
@@ -111,4 +110,72 @@ class Countries {
         return $this->countryname;
     }
 
+
+    /**
+     * Add telephelyek
+     *
+     * @param \FeladatBundle\Entity\Telephely $telephelyek
+     *
+     * @return Countries
+     */
+    public function addTelephelyek(\FeladatBundle\Entity\Telephely $telephelyek)
+    {
+        $this->telephelyek[] = $telephelyek;
+
+        return $this;
+    }
+
+    /**
+     * Remove telephelyek
+     *
+     * @param \FeladatBundle\Entity\Telephely $telephelyek
+     */
+    public function removeTelephelyek(\FeladatBundle\Entity\Telephely $telephelyek)
+    {
+        $this->telephelyek->removeElement($telephelyek);
+    }
+
+    /**
+     * Get telephelyek
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getTelephelyek()
+    {
+        return $this->telephelyek;
+    }
+
+    /**
+     * Add country
+     *
+     * @param \FeladatBundle\Entity\Partner $country
+     *
+     * @return Countries
+     */
+    public function addCountry(\FeladatBundle\Entity\Partner $country)
+    {
+        $this->countries[] = $country;
+
+        return $this;
+    }
+
+    /**
+     * Remove country
+     *
+     * @param \FeladatBundle\Entity\Partner $country
+     */
+    public function removeCountry(\FeladatBundle\Entity\Partner $country)
+    {
+        $this->countries->removeElement($country);
+    }
+
+    /**
+     * Get countries
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getCountries()
+    {
+        return $this->countries;
+    }
 }

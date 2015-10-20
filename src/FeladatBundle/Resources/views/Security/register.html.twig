@@ -1,4 +1,6 @@
 {% extends '::base.html.twig' %}
+
+{% block title %}Regisztráció{% endblock %}
 {% form_theme form 'FeladatBundle:Form:fields.html.twig'%}
 {% block menu %}{% endblock %}
 {% block body %}
@@ -9,6 +11,7 @@
         <div class="register-container">
             <div class="register-content">
                 {{ form_start(form) }} 
+                {{ form_row(form.nev_elotag) }}
                 {{ form_row(form.vezeteknev) }}<br>
                 {{ form_row(form.keresztnev) }}<br>
                 {{ form_row(form.username) }}<br>

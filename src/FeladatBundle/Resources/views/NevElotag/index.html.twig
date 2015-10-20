@@ -1,50 +1,56 @@
 {% extends '::base.html.twig' %}
 
+{% block title %}Név előtagok{% endblock %}
+
 {% block body -%}
     <div class="body-container">
         <h2>Név előtag lista</h2>
+        <ul>
+            <li>
+                <a href="{{ path('nevelotag_new') }}">
+                    <span class="glyphicon glyphicon-star"></span> Új hozzáadása
+                </a>
+            </li>
+        </ul>
         <div class="table-responsive">
             <table class="records_list table-striped table-condensed table-bordered">
                 <thead>
                     <tr>
                         <th>{{ knp_pagination_sortable(pagination, 'Rendezés', 'a.nev') }}</th>
                         <th></th>
-                        <th></th>                      
+                        <th colspan="3"></th>                      
                     </tr>
                     <tr>
                         <th>Név</th>
                         <th>Leírás</th>
-                        <th>Műveletek</th>
+                        <th colspan="3">Műveletek</th>
                     </tr>
                 </thead>
                 <tbody>
                     {% for entity in pagination %}
                         <tr>
-                            <td><a href="{{ path('nevelotag_show', { 'id': entity.id }) }}">{{ entity.nev }}</td>
+                            <td>{{ entity.nev }}</td>
                             <td>{{ entity.leiras }}</td>
                             <td>
-                                <ul>
-                                    <li>
-                                        <a href="{{ path('nevelotag_show', { 'id': entity.id }) }}">Részletek</a>
-                                    </li>
-                                    <li>
-                                        <a href="{{ path('nevelotag_edit', { 'id': entity.id }) }}">Szerkesztés</a>
-                                    </li>
-                                </ul>
+                                <button href="{{ path('nevelotag_show', { 'id': entity.id }) }}">Részletek</button>
+                            </td>
+                            <td>
+                                <button href="{{ path('nevelotag_edit', { 'id': entity.id }) }}">Szerkesztés</button>
+                            </td>
+
+                            <td class="record_delete">
+                                <form action="{{ path('nevelotag_delete', { 'id': entity.id }) }}" method="POST" >
+                                    <input type="hidden" name="_method" value="DELETE"  />
+                                    {{ form_widget(deleteForm[entity.id]) }} 
+                                </form>
+                            </td>
+
                             </td>
                         </tr>
                     {% endfor %}
                 </tbody>
             </table>
         </div>
-
-        <ul>
-            <li>
-                <a href="{{ path('nevelotag_new') }}">
-                    Új létrehozása
-                </a>
-            </li>
-        </ul>
         <div class="navigation">
             {{ knp_pagination_render(pagination) }}
         </div>

@@ -14,8 +14,11 @@ class RegisterUserType extends AbstractType {
      */
     public function buildForm(FormBuilderInterface $builder, array $options) {
         $builder
-                ->add('nev_elotag', 'hidden', array(
-                    'data' => null
+                ->add('nev_elotag', 'entity', array(
+                    'class' => 'FeladatBundle:NevElotag',
+                    'label' => 'Név előtag',
+                    'placeholder' => '--Válasszon!--',
+                    'required' => 'true',
                 ))
                 ->add('vezeteknev', 'text', array(
                     'label' => 'Vezetéknév'

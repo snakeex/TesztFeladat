@@ -30,8 +30,7 @@ class PartnerType extends AbstractType
                     'class' => 'FeladatBundle:NevElotag',
                     'property' => 'nev',
                     'required' => false,
-                    //'placeholder' => '--Válasszon!--',
-                    'empty_data' => null,
+                    'placeholder' => '--Válasszon!--',
                 ))
             ->add('vezeteknev','text', array(
                     'label' => 'Vezetéknév',
@@ -125,11 +124,11 @@ class PartnerType extends AbstractType
                     'label' => 'Adószám',
                     'required' => false,
                 ))
-            ->add('euAdoszam','text', array(
+            ->add('euAdoszam','number', array(
                     'label' => 'EU adószám',
                     'required' => false,
                 ))
-            ->add('cegbejegyzesiSzam','text', array(
+            ->add('cegbejegyzesiSzam','number', array(
                     'label' => 'Cégbejegyzési szám',
                     'required' => false,
                 ))

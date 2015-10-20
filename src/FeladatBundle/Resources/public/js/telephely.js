@@ -9,7 +9,7 @@ function checkRequired() {
         var input_tag = myChildren[i].childNodes[1].childNodes[0];
         if (input_tag.hasAttribute("required") && label.childNodes.length < 2) {
             var span = document.createElement('span');
-            span.textContent = "*";
+            span.textContent = " *";
             label.appendChild(span);
         } else if (!(input_tag.hasAttribute("required")) && label.childNodes.length > 1) {
             label.removeChild(label.childNodes[1]);

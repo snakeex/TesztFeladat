@@ -154,44 +154,44 @@ class Partner {
     private $postazasiCimHazsz;
 
     /**
-     * @var integer
+     * @var string
      *
-     * @ORM\Column(name="adoszam", type="integer", nullable=false)
+     * @ORM\Column(name="adoszam", type="string", nullable=false)
      */
     private $adoszam;
 
     /**
-     * @var integer
+     * @var string
      *
-     * @ORM\Column(name="eu_adoszam", type="integer", nullable=false)
+     * @ORM\Column(name="eu_adoszam", type="string", nullable=false)
      */
     private $euAdoszam;
 
     /**
-     * @var integer
+     * @var string
      *
-     * @ORM\Column(name="cegbejegyzesi_szam", type="integer", nullable=false)
+     * @ORM\Column(name="cegbejegyzesi_szam", type="string", nullable=false)
      */
     private $cegbejegyzesiSzam;
 
     /**
-     * @var integer
+     * @var string
      *
-     * @ORM\Column(name="telefon", type="integer", nullable=false)
+     * @ORM\Column(name="telefon", type="string", nullable=false)
      */
     private $telefon;
 
     /**
-     * @var integer
+     * @var string
      *
-     * @ORM\Column(name="fax", type="integer", nullable=false)
+     * @ORM\Column(name="fax", type="string", nullable=false)
      */
     private $fax;
 
     /**
-     * @var integer
+     * @var string
      *
-     * @ORM\Column(name="mobil", type="integer", nullable=false)
+     * @ORM\Column(name="mobil", type="string", nullable=false)
      */
     private $mobil;
 
@@ -785,7 +785,7 @@ class Partner {
     /**
      * Set telefon
      *
-     * @param integer $telefon
+     * @param string $telefon
      *
      * @return Partner
      */
@@ -798,7 +798,7 @@ class Partner {
     /**
      * Get telefon
      *
-     * @return integer
+     * @return string
      */
     public function getTelefon() {
         return $this->telefon;
@@ -807,7 +807,7 @@ class Partner {
     /**
      * Set fax
      *
-     * @param integer $fax
+     * @param string $fax
      *
      * @return Partner
      */
@@ -820,7 +820,7 @@ class Partner {
     /**
      * Get fax
      *
-     * @return integer
+     * @return string
      */
     public function getFax() {
         return $this->fax;
@@ -829,7 +829,7 @@ class Partner {
     /**
      * Set mobil
      *
-     * @param integer $mobil
+     * @param string $mobil
      *
      * @return Partner
      */
@@ -842,7 +842,7 @@ class Partner {
     /**
      * Get mobil
      *
-     * @return integer
+     * @return string
      */
     public function getMobil() {
         return $this->mobil;

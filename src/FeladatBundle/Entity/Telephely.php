@@ -164,7 +164,7 @@ class Telephely
      *
      * @return Telephely
      */
-    public function setPartner($partner)
+    public function setPartner(\FeladatBundle\Entity\Partner $partner = null)
     {
         $this->partner = $partner;
 

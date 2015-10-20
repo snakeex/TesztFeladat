@@ -1,3 +1,11 @@
+.table-striped > tbody > tr:nth-of-type(2n+1){
+    height: 30px;
+}
+
+.table-striped > tbody > tr > td.record_delete{
+    max-width: 100px;
+}
+
 .form-control{
     padding: 2px;
     height: 25px;
@@ -9,11 +17,11 @@ select, textarea, input[type="text"], input[type="password"], input[type="dateti
 }
 
 .form-search input, .form-inline input, .form-horizontal input, .form-search textarea, .form-inline textarea, .form-horizontal textarea, .form-search select, .form-inline select, .form-horizontal select, .form-search .help-inline, .form-inline .help-inline, .form-horizontal .help-inline, .form-search .uneditable-input, .form-inline .uneditable-input, .form-horizontal .uneditable-input, .form-search .input-prepend, .form-inline .input-prepend, .form-horizontal .input-prepend, .form-search .input-append, .form-inline .input-append, .form-horizontal .input-append{
-    max-width: 300px;
+    max-width: 250px;
 }
 
 .form-horizontal .control-label{
-    width: 200px;
+    min-width: 300px;
     padding-top: 3px;
     padding-right: 7px;
     height: 25px;
@@ -45,4 +53,12 @@ select, textarea, input[type="text"], input[type="password"], input[type="dateti
     margin-top: -200px;
     margin-left: -150px;
     background-color: #eee;
+}
+
+#login_username{
+    margin-bottom: 10px;
+}
+
+#login_password{
+    margin-bottom: 10px;
 }

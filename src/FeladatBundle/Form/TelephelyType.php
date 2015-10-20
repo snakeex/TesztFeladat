@@ -59,7 +59,8 @@ class TelephelyType extends AbstractType
                 'label' => 'E-mail',
                 'required' => false,
             ))
-            ->add('alapertelmezett', 'checkbox', array(       
+            ->add('alapertelmezett', 'checkbox', array(
+                'label' => 'Alapértelmezett',
                 'required' => false,
             ))
             ->add('megjegyzes', 'textarea', array(

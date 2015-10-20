@@ -6,6 +6,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use FeladatBundle\Entity\Partner;
 use FeladatBundle\Entity\NevElotag;
+use FeladatBundle\Entity\Telephely;
 use FeladatBundle\Form\PartnerType;
 use FeladatBundle\Form\NevElotagType;
 
@@ -29,8 +30,16 @@ class PartnerController extends Controller {
         $pagination = $paginator->paginate(
                 $query, $request->query->getInt('page', 1), 5);
 
+        $deleteForm = array();
+
+        foreach ($pagination as $entity) {
+            $thisId = $entity->getId();
+            $deleteForm[$thisId] = $this->createDeleteForm($thisId)->createView();
+        }
+
         return $this->render('FeladatBundle:Partner:index.html.twig', array(
                     'pagination' => $pagination,
+                    'deleteForm' => $deleteForm,
         ));
     }
 
@@ -46,11 +55,41 @@ class PartnerController extends Controller {
         if ($form->isValid()) {
             $em = $this->getDoctrine()->getManager();
 
+            $szamlazasiNev = $entity->getSzamlazasiNev();
+            if ($szamlazasiNev == null) {
+                $vezeteknev = $entity->getVezeteknev();
+                $keresztnev = $entity->getKeresztnev();
+
+                $szamlazasiNev = $vezeteknev . " " . $keresztnev;
+                $entity->setSzamlazasiNev($szamlazasiNev);
+            }
+
             $curr_user = $this->get('security.token_storage')->getToken()->getUser();
             $curr_user_name = $curr_user->getUsername();
             $entity->setLetrehozo($curr_user_name);
 
             $em->persist($entity);
+            $em->flush();
+
+            $telephely = new Telephely();
+            $nev = $entity . " telephelye";
+            $orszag = $form->get('szekhelyCimOrszag')->getData();
+            $irsz = $form->get('szekhelyCimIrsz')->getData();
+            $telepules = $form->get('szekhelyCimTelepules')->getData();
+            $kozter = $form->get('szekhelyCimKozter')->getData();
+            $hazsz = $form->get('szekhelyCimIhazsz')->getData();
+
+            $telephely->setPartner($entity);
+            $telephely->setNev($nev);
+            $telephely->setOrszag($orszag);
+            $telephely->setIrsz($irsz);
+            $telephely->setTelepules($telepules);
+            $telephely->setKozter($kozter);
+            $telephely->setHazsz($hazsz);
+            $telephely->setAlapertelmezett($alapertelmezett = true);
+            $telephely->setLetrehozo($curr_user_name);
+
+            $em->persist($telephely);
             $em->flush();
 
             $nextAction = $form->get('saveAndAdd')->isClicked() ? 'partner_new' : 'partner_show';
@@ -78,10 +117,10 @@ class PartnerController extends Controller {
         ));
 
         $form->add('save', 'submit', array(
-            'label' => 'Mentés',
-        ))
-        ->add('saveAndAdd', 'submit', array(
-            'label' => 'Mentés és új',
+                    'label' => 'Mentés',
+                ))
+                ->add('saveAndAdd', 'submit', array(
+                    'label' => 'Mentés és új',
         ));
 
         return $form;
@@ -100,44 +139,44 @@ class PartnerController extends Controller {
                     'form' => $form->createView(),
         ));
     }
-    
-    /*public function elotagAction(Request $request){
-        $em = $this->getDoctrine()-getManager();
-        
-        $newElotag = new NevElotag();
-        
-        $form = $this->createForm(
-                new NevElotagType(),
-                $newElotag,
-                array('action' => $this->generateUrl('partner_elotag'), 'method' => 'POST')
-                );
-        
-        if($request->isMethod('POST')){
-            $form->handleRequest($request);
-            
-            if($form->isValid()){
-                $data = $form->getData();
-                
-                $em->persist($data);
-                $em->flush();
-                
-                $response = new Response(json_encode([
-                    'success' => true,
-                    'id' => $data->getId(),
-                    'nev' => $data->getNev(),
-                    'leiras' => $data->getLeiras()
-                ]));
-                $response->headers->set('Content-Type', 'application/json');
-                
-                return $response;
-            }
-        }
-        
-        return $this->render("FeladatBundle:NevElotag:new.html.twig", array(
-            'form' => $form->createView()
-        ));
-        
-    }*/
+
+    /* public function elotagAction(Request $request){
+      $em = $this->getDoctrine()-getManager();
+
+      $newElotag = new NevElotag();
+
+      $form = $this->createForm(
+      new NevElotagType(),
+      $newElotag,
+      array('action' => $this->generateUrl('partner_elotag'), 'method' => 'POST')
+      );
+
+      if($request->isMethod('POST')){
+      $form->handleRequest($request);
+
+      if($form->isValid()){
+      $data = $form->getData();
+
+      $em->persist($data);
+      $em->flush();
+
+      $response = new Response(json_encode([
+      'success' => true,
+      'id' => $data->getId(),
+      'nev' => $data->getNev(),
+      'leiras' => $data->getLeiras()
+      ]));
+      $response->headers->set('Content-Type', 'application/json');
+
+      return $response;
+      }
+      }
+
+      return $this->render("FeladatBundle:NevElotag:new.html.twig", array(
+      'form' => $form->createView()
+      ));
+
+      } */
 
     /**
      * Finds and displays a Partner entity.
@@ -147,7 +186,7 @@ class PartnerController extends Controller {
         $em = $this->getDoctrine()->getManager();
 
         $entity = $em->getRepository('FeladatBundle:Partner')->find($id);
-        
+
         $telephelyek = $entity->getTelephelyek();
 
         if (!$entity) {
@@ -199,7 +238,7 @@ class PartnerController extends Controller {
             'method' => 'PUT',
         ));
 
-        $form->add('submit', 'submit', array('label' => 'Update'));
+        $form->add('submit', 'submit', array('label' => 'Módosít'));
 
         return $form;
     }
@@ -271,7 +310,9 @@ class PartnerController extends Controller {
         return $this->createFormBuilder()
                         ->setAction($this->generateUrl('partner_delete', array('id' => $id)))
                         ->setMethod('DELETE')
-                        ->add('submit', 'submit', array('label' => 'Delete'))
+                        ->add('submit', 'submit', array('label' => 'Törlés', 'attr' => array(
+                            'class' => null,
+                        )))
                         ->getForm()
         ;
     }
