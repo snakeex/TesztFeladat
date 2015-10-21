@@ -298,9 +298,15 @@ class Partner {
      * @ORM\OneToMany(targetEntity="Telephely", mappedBy="partner")
      */
     protected $telephelyek;
+    
+    /**
+     *@ORM\OneToMany(targetEntity="Kapcsolattarto", mappedBy="partner")
+     */
+    protected $kapcsolattartok;
 
     public function __construct() {
         $this->telephelyek = new ArrayCollection();
+        $this->kapcsolattartok = new ArrayCollection();
     }
 
     public function __toString() {
@@ -1137,5 +1143,39 @@ class Partner {
     public function getTelephelyek()
     {
         return $this->telephelyek;
+    }
+
+    /**
+     * Add kapcsolattartok
+     *
+     * @param \FeladatBundle\Entity\Kapcsolattarto $kapcsolattartok
+     *
+     * @return Partner
+     */
+    public function addKapcsolattartok(\FeladatBundle\Entity\Kapcsolattarto $kapcsolattartok)
+    {
+        $this->kapcsolattartok[] = $kapcsolattartok;
+
+        return $this;
+    }
+
+    /**
+     * Remove kapcsolattartok
+     *
+     * @param \FeladatBundle\Entity\Kapcsolattarto $kapcsolattartok
+     */
+    public function removeKapcsolattartok(\FeladatBundle\Entity\Kapcsolattarto $kapcsolattartok)
+    {
+        $this->kapcsolattartok->removeElement($kapcsolattartok);
+    }
+
+    /**
+     * Get kapcsolattartok
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getKapcsolattartok()
+    {
+        return $this->kapcsolattartok;
     }
 }

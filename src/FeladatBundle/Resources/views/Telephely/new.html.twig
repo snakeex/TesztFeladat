@@ -18,4 +18,9 @@
 {% block javascripts %}
     {{ parent() }}
     <script type="text/javascript" src="{{ asset('/bundles/feladat/js/telephely.js') }}"></script>
+    <script type="text/javascript">
+        $(document).ready(function () {            
+            checkRequired("feladatbundle_telephely");
+        });
+    </script>
 {% endblock %}

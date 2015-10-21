@@ -58,6 +58,9 @@ class TelephelyController extends Controller {
 
             $em->persist($entity);
             $em->flush();
+            $this->get('session')->getFlashBag()->add(
+                'notice', 'Sikeres létrehozás!'
+        );
 
             $nextAction = $form->get('saveAndAdd')->isClicked() ? 'telephely_new' : 'telephely_show';
 
@@ -204,6 +207,9 @@ class TelephelyController extends Controller {
             
             $em->persist($entity);
             $em->flush();
+            $this->get('session')->getFlashBag()->add(
+                'notice', 'Sikeres módosítás!'
+        );
 
             return $this->redirect($this->generateUrl('telephely_edit', array('id' => $id)));
         }
@@ -233,6 +239,9 @@ class TelephelyController extends Controller {
 
             $em->remove($entity);
             $em->flush();
+            $this->get('session')->getFlashBag()->add(
+                'notice', 'Sikeres törlés!'
+        );
         }
 
         return $this->redirect($this->generateUrl('telephely'));

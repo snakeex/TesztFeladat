@@ -1,9 +1,5 @@
-$(document).ready(function () {
-    checkRequired();
- });
-
-function checkRequired() {
-    var myChildren = document.getElementById("feladatbundle_telephely").childNodes;
+function checkRequired($formClass) {
+    var myChildren = document.getElementById($formClass).childNodes;
     for (var i = 0; i < myChildren.length - 2; i++) {
         var label = myChildren[i].childNodes[0];
         var input_tag = myChildren[i].childNodes[1].childNodes[0];
@@ -16,3 +12,5 @@ function checkRequired() {
         }
     }
 }
+
+

@@ -23,10 +23,16 @@
                 </div>
             </div>
         {% endblock %}
+        {% for flashMessage in app.session.flashbag.get('notice') %}
+        <div class="alert alert-success">
+            {{ flashMessage }}
+        </div>
+    {% endfor %}
     {% block body %}{% endblock %}
     {% block javascripts %}
         <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
         <script type="text/javascript" src="{{ asset('/bundles/feladat/fancybox/jquery.fancybox.pack.js') }}"></script>
+        <script type="text/javascript" src="{{ asset('/bundles/feladat/js/checkRequired.js') }}"></script>
         <script type="text/javascript" src="https://netdna.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
     {% endblock %}
 </body>

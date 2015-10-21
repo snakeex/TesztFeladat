@@ -32,10 +32,10 @@
                             <td>{{ entity.nev }}</td>
                             <td>{{ entity.leiras }}</td>
                             <td>
-                                <button href="{{ path('nevelotag_show', { 'id': entity.id }) }}">Részletek</button>
+                                <a href="{{ path('nevelotag_show', { 'id': entity.id }) }}">Részletek</a>
                             </td>
                             <td>
-                                <button href="{{ path('nevelotag_edit', { 'id': entity.id }) }}">Szerkesztés</button>
+                                <a href="{{ path('nevelotag_edit', { 'id': entity.id }) }}">Szerkesztés</a>
                             </td>
 
                             <td class="record_delete">

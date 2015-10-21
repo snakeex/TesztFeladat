@@ -69,7 +69,6 @@ class PartnerController extends Controller {
             $entity->setLetrehozo($curr_user_name);
 
             $em->persist($entity);
-            $em->flush();
 
             $telephely = new Telephely();
             $nev = $entity . " telephelye";
@@ -91,7 +90,9 @@ class PartnerController extends Controller {
 
             $em->persist($telephely);
             $em->flush();
-
+            $this->get('session')->getFlashBag()->add(
+                'notice', 'Sikeres létrehozás!'
+        );
             $nextAction = $form->get('saveAndAdd')->isClicked() ? 'partner_new' : 'partner_show';
 
             return $this->redirect($this->generateUrl($nextAction, array('id' => $entity->getId())));
@@ -140,44 +141,6 @@ class PartnerController extends Controller {
         ));
     }
 
-    /* public function elotagAction(Request $request){
-      $em = $this->getDoctrine()-getManager();
-
-      $newElotag = new NevElotag();
-
-      $form = $this->createForm(
-      new NevElotagType(),
-      $newElotag,
-      array('action' => $this->generateUrl('partner_elotag'), 'method' => 'POST')
-      );
-
-      if($request->isMethod('POST')){
-      $form->handleRequest($request);
-
-      if($form->isValid()){
-      $data = $form->getData();
-
-      $em->persist($data);
-      $em->flush();
-
-      $response = new Response(json_encode([
-      'success' => true,
-      'id' => $data->getId(),
-      'nev' => $data->getNev(),
-      'leiras' => $data->getLeiras()
-      ]));
-      $response->headers->set('Content-Type', 'application/json');
-
-      return $response;
-      }
-      }
-
-      return $this->render("FeladatBundle:NevElotag:new.html.twig", array(
-      'form' => $form->createView()
-      ));
-
-      } */
-
     /**
      * Finds and displays a Partner entity.
      *
@@ -188,6 +151,7 @@ class PartnerController extends Controller {
         $entity = $em->getRepository('FeladatBundle:Partner')->find($id);
 
         $telephelyek = $entity->getTelephelyek();
+        $kapcsolattartok = $entity->getKapcsolattartok();
 
         if (!$entity) {
             throw $this->createNotFoundException('Unable to find Partner entity.');
@@ -198,6 +162,7 @@ class PartnerController extends Controller {
         return $this->render('FeladatBundle:Partner:show.html.twig', array(
                     'entity' => $entity,
                     'telephelyek' => $telephelyek,
+                    'kapcsolattartok' => $kapcsolattartok,
                     'delete_form' => $deleteForm->createView(),
         ));
     }
@@ -265,6 +230,9 @@ class PartnerController extends Controller {
             $curr_user_name = $curr_user->getUsername();
             $entity->setModosito($curr_user_name);
             $em->flush();
+            $this->get('session')->getFlashBag()->add(
+                'notice', 'Sikeres módosítás!'
+        );
 
             return $this->redirect($this->generateUrl('partner_edit', array('id' => $id)));
         }
@@ -294,6 +262,9 @@ class PartnerController extends Controller {
 
             $em->remove($entity);
             $em->flush();
+            $this->get('session')->getFlashBag()->add(
+                'notice', 'Sikeres törlés!'
+        );
         }
 
         return $this->redirect($this->generateUrl('partner'));

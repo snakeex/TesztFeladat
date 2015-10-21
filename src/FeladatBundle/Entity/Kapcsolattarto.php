@@ -4,24 +4,17 @@ namespace FeladatBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\Common\Collections\ArrayCollection;
-use Symfony\Component\Validator\Constraints as Assert;
-use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
-
 
 /**
- * NevElotag
+ * Kapcsolattarto
  *
- * @ORM\Table(name="nev_elotag")
+ * @ORM\Table(name="kapcsolattartok")
  * @ORM\Entity
- * @UniqueEntity(
- *     fields={"nev"},
- *     errorPath="nev",
- *     message="Ez a név előtag már létezik."
  * )
  * @ORM\HasLifecycleCallbacks()
  */
-class NevElotag
-{
+class Kapcsolattarto {
+
     /**
      * @var integer
      *
@@ -42,9 +35,26 @@ class NevElotag
     /**
      * @var string
      *
-     * @ORM\Column(name="leiras", type="text", length=65535, nullable=true)
+     * @ORM\Column(name="email", type="string", length=255, nullable=false)
      */
-    private $leiras;
+    private $email;
+    
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="telefon", type="string", length=50, nullable=false)
+     */
+    private $telefon;
+    
+    /**
+     * @var \FeladatBundle\Entity\Partner
+     *
+     * @ORM\ManyToOne(targetEntity="FeladatBundle\Entity\Partner", inversedBy="kapcsolattartok")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="partner", referencedColumnName="id")
+     * })
+     */
+    private $partner;
 
     /**
      * @var string
@@ -73,25 +83,6 @@ class NevElotag
      * @ORM\Column(name="modosito", type="string", length=255, nullable=true)
      */
     private $modosito;
-    
-    /**
-     * @ORM\OneToMany(targetEntity="Partner", mappedBy="nevElotag")
-     */
-    protected $partnerek;
-    
-    /**
-     * @ORM\OneToMany(targetEntity="User", mappedBy="nevElotag")
-     */
-    protected $felhasznalok;
-    
-    public function __construct(){
-        $this->partnerek = new ArrayCollection();
-        $this->felhasznalok = new ArrayCollection();
-    }
-    
-    public function __toString() {
-        return "{$this->getNev()}";
-    }
 
     /**
      * Get id
@@ -108,7 +99,7 @@ class NevElotag
      *
      * @param string $nev
      *
-     * @return NevElotag
+     * @return Kapcsolattarto
      */
     public function setNev($nev)
     {
@@ -128,27 +119,51 @@ class NevElotag
     }
 
     /**
-     * Set leiras
+     * Set email
      *
-     * @param string $leiras
+     * @param string $email
      *
-     * @return NevElotag
+     * @return Kapcsolattarto
      */
-    public function setLeiras($leiras)
+    public function setEmail($email)
     {
-        $this->leiras = $leiras;
+        $this->email = $email;
 
         return $this;
     }
 
     /**
-     * Get leiras
+     * Get email
      *
      * @return string
      */
-    public function getLeiras()
+    public function getEmail()
     {
-        return $this->leiras;
+        return $this->email;
+    }
+
+    /**
+     * Set telefon
+     *
+     * @param string $telefon
+     *
+     * @return Kapcsolattarto
+     */
+    public function setTelefon($telefon)
+    {
+        $this->telefon = $telefon;
+
+        return $this;
+    }
+
+    /**
+     * Get telefon
+     *
+     * @return string
+     */
+    public function getTelefon()
+    {
+        return $this->telefon;
     }
 
     /**
@@ -174,7 +189,7 @@ class NevElotag
      *
      * @param string $letrehozo
      *
-     * @return NevElotag
+     * @return Kapcsolattarto
      */
     public function setLetrehozo($letrehozo)
     {
@@ -217,7 +232,7 @@ class NevElotag
      *
      * @param string $modosito
      *
-     * @return NevElotag
+     * @return Kapcsolattarto
      */
     public function setModosito($modosito)
     {
@@ -235,66 +250,28 @@ class NevElotag
     {
         return $this->modosito;
     }
-    
-    public function getPartnerek(){
-        return $this->partnerek;
-    }
 
     /**
-     * Add partnerek
+     * Set partner
      *
-     * @param \FeladatBundle\Entity\User $partnerek
+     * @param \FeladatBundle\Entity\Partner $partner
      *
-     * @return NevElotag
+     * @return Kapcsolattarto
      */
-    public function addPartnerek(\FeladatBundle\Entity\User $partnerek)
+    public function setPartner(\FeladatBundle\Entity\Partner $partner = null)
     {
-        $this->partnerek[] = $partnerek;
+        $this->partner = $partner;
 
         return $this;
     }
 
     /**
-     * Remove partnerek
+     * Get partner
      *
-     * @param \FeladatBundle\Entity\User $partnerek
+     * @return \FeladatBundle\Entity\Partner
      */
-    public function removePartnerek(\FeladatBundle\Entity\User $partnerek)
+    public function getPartner()
     {
-        $this->partnerek->removeElement($partnerek);
-    }
-
-    /**
-     * Add felhasznalok
-     *
-     * @param \FeladatBundle\Entity\User $felhasznalok
-     *
-     * @return NevElotag
-     */
-    public function addFelhasznalok(\FeladatBundle\Entity\User $felhasznalok)
-    {
-        $this->felhasznalok[] = $felhasznalok;
-
-        return $this;
-    }
-
-    /**
-     * Remove felhasznalok
-     *
-     * @param \FeladatBundle\Entity\User $felhasznalok
-     */
-    public function removeFelhasznalok(\FeladatBundle\Entity\User $felhasznalok)
-    {
-        $this->felhasznalok->removeElement($felhasznalok);
-    }
-
-    /**
-     * Get felhasznalok
-     *
-     * @return \Doctrine\Common\Collections\Collection
-     */
-    public function getFelhasznalok()
-    {
-        return $this->felhasznalok;
+        return $this->partner;
     }
 }

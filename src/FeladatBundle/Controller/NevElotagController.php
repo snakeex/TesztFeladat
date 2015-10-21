@@ -62,6 +62,9 @@ class NevElotagController extends Controller {
 
             $em->persist($entity);
             $em->flush();
+            $this->get('session')->getFlashBag()->add(
+                'notice', 'Sikeres létrehozás!'
+        );
             
             $nextAction = $form->get('saveAndAdd')->isClicked() ? 'nevelotag_new' : 'nevelotag_show';
 
@@ -204,6 +207,9 @@ class NevElotagController extends Controller {
             $curr_user_name = $curr_user->getUsername();
             $entity->setModosito($curr_user_name);
             $em->flush();
+            $this->get('session')->getFlashBag()->add(
+                'notice', 'Sikeres módosítás!'
+        );
 
             return $this->redirect($this->generateUrl('nevelotag_edit', array('id' => $id)));
         }
@@ -233,6 +239,8 @@ class NevElotagController extends Controller {
 
             $em->remove($entity);
             $em->flush();
+            $this->get('session')->getFlashBag()->add(
+                'notice', 'Sikeres törlés!');
         }
 
         return $this->redirect($this->generateUrl('nevelotag'));

@@ -1,0 +1,86 @@
+<?php
+
+namespace FeladatBundle\Entity;
+
+use Doctrine\ORM\Mapping as ORM;
+use Doctrine\Common\Collections\ArrayCollection;
+
+/**
+ * Kapcsolattarto
+ *
+ * @ORM\Table(name="kapcsolattartok")
+ * @ORM\Entity
+ * )
+ * @ORM\HasLifecycleCallbacks()
+ */
+class Kapcsolattarto {
+
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="id", type="integer")
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="IDENTITY")
+     */
+    private $id;
+
+    /**
+     * @var string
+     * 
+     * 
+     * @ORM\Column(name="nev", type="string", length=255, nullable=false)
+     */
+    private $nev;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="email", type="string", length=255, nullable=false)
+     */
+    private $email;
+    
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="telefon", type="string", length=50, nullable=false)
+     */
+    private $telefon;
+    
+    /**
+     * @var \FeladatBundle\Entity\Partner
+     *
+     * @ORM\ManyToOne(targetEntity="FeladatBundle\Entity\Partner", inversedBy="kapcsolattartok")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="partner", referencedColumnName="id")
+     * })
+     */
+    private $partner;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="letrehozva", type="string", length=25, nullable=false)
+     */
+    private $letrehozva;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="letrehozo", type="string", length=255, nullable=true)
+     */
+    private $letrehozo;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="modositva", type="string", length=25, nullable=false)
+     */
+    private $modositva;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="modosito", type="string", length=255, nullable=true)
+     */
+    private $modosito;
+}

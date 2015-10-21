@@ -4,6 +4,7 @@
 
 .table-striped > tbody > tr > td.record_delete{
     max-width: 100px;
+    
 }
 
 .form-control{
@@ -61,4 +62,14 @@ select, textarea, input[type="text"], input[type="password"], input[type="dateti
 
 #login_password{
     margin-bottom: 10px;
+}
+
+.alert-success, .alert-danger{
+    display: table;
+    min-width: 150px;
+    max-width: 300px;
+    padding-top: 3px;
+    padding-bottom: 3px;
+    text-align: center;
+    margin: auto;
 }

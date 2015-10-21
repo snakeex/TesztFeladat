@@ -1,21 +1,5 @@
-{% extends '::base.html.twig' %}
-
-{% block title %}Partner - részletek{% endblock %}
-{% block stylesheets %}
-    {{ parent() }}
-    <link rel="stylesheet" href="{{ asset('bundles/feladat/tab/style.css') }}" type="text/css" media="screen" />
-{% endblock %}
-{% block body -%}
-    <div class="body-container">
-        <h2>Partner</h2>
-        <div id="tab-container" class="tab-container">
-            <ul class='etabs'>
-                <li class='tab'><a href="#tab-alapadatok">Alapadatok</a></li>
-                <li class='tab'><a href="#tab-telephelyek">Telephelyek</a></li>
-                <li class='tab'><a href="#tab-kapcsolattartok">Kapcsolattartók</a></li>
-            </ul>
-            <div id="tab-alapadatok">
-                <div class="table-responsive">
+{% block details %}
+<div class="table-responsive">
                     <table class="record_properties table-striped table-condensed table-bordered">
                         <tbody>
                             <tr>
@@ -158,82 +142,5 @@
                     </li>
                     <li>{{ form(delete_form) }}</li>
                 </ul>
-            </div>         
-            <div id="tab-telephelyek">
-                <div class="table-responsive">
-                    <table class="records_list table-striped table-condensed table-bordered">
-                        <thead>
-                            <tr>
-                                <th>Név</th>
-                                <th>Partner</th>              
-                                <th>Cím</th>               
-                                <th>Telefon</th>
-                                <th>Fax</th>
-                                <th>Mobil</th>
-                                <th>E-mail</th>
-                                <th colspan='2'>Műveletek</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            {% for entity in telephelyek %}
-                                <tr>
-                                    <td><a href="{{ path('telephely_show', { 'id': entity.id }) }}">{{ entity.nev }}</a></td>
-                                    <td>{{ entity.partner }}</td>               
-                                    <td>
-                                        {{ entity.irsz }} {{ entity.telepules }} {{ entity.kozter }} {{ entity.hazsz }}<br>
-                                        Alapértelmezett: {{ entity.alapertelmezett ? 'Igen' : 'Nem' }}
-                                    </td>
-                                    <td>{{ entity.telefon }}</td>
-                                    <td>{{ entity.fax }}</td>
-                                    <td>{{ entity.mobil }}</td>
-                                    <td>{{ entity.email }}</td>
-                                    <td>
-                                        <a href="{{ path('telephely_show', { 'id': entity.id }) }}">Részletek</a>
-                                    </td>
-                                    <td>
-                                        <a href="{{ path('telephely_edit', { 'id': entity.id }) }}">Szerkesztés</a>
-                                    </td>
-                                </tr>
-                            {% endfor %}
-                        </tbody>
-                    </table>
-                </div>
-            </div>       
-            <div id="tab-kapcsolattartok">
-                <div class="table-responsive">
-                    <table class="records_list table-striped table-condensed table-bordered">
-                        <thead>
-                            <tr>
-                                <th>Név</th>
-                                <th>Partner</th>                             
-                                <th>Telefon</th>
-                                <th>E-mail</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            {% for entity in kapcsolattartok %}
-                                <tr>
-                                    <td>{{ entity.nev }}</td>
-                                    <td>{{ entity.partner }}</td>                                                  
-                                    <td>{{ entity.telefon }}</td>
-                                    <td>{{ entity.email }}</td>
-                                </tr>
-                            {% endfor %}
-                        </tbody>
-                    </table>
-                </div>
             </div>
-        </div>
-    </div>
-{% endblock %}
-{% block javascripts %}
-    {{ parent() }}
-    <script type="text/javascript" src="{{ asset('/bundles/feladat/tab/jquery.hashchange.min.js') }}"></script>
-    <script type="text/javascript" src="{{ asset('/bundles/feladat/tab/jquery.easytabs.js') }}"></script>
-    <script type="text/javascript" src="{{ asset('/bundles/feladat/tab/jquery.easytabs.min.js') }}"></script>
-    <script type="text/javascript">
-        $(document).ready(function () {
-            $('#tab-container').easytabs();
-        });
-    </script>
 {% endblock %}
